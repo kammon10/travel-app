@@ -2,5 +2,33 @@
 @import '_variables';
 
 body {
+  color: white;
   background: $primary-background;
+}
+
+.header-homepage {
+  display: flex;
+  border: 2px solid red;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.header-reservationpage {
+display: flex;
+justify-content: flex-start;
+align-items: center;
+}
+
+button {
+  border-radius: 10px;
+  width: 120px;
+  height:40px;
+  border: none;
+  color: white;
+  background-color: green
+}
+
+.hidden {
+  display: none;
 }
