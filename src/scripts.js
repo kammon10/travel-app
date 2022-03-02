@@ -8,13 +8,25 @@ let trips;
 
 //querySelectors
 
+//eventListeners
+window.addEventListener('load', fetchAllData)
+
 
 //functions
 function fetchAllData() {
   Promise.all([fetchData('travelers'), fetchData('trips')])
     .then(data => {
-      initializeData(data[0])
+      initializeData(data[0].travelers, data[1].trips)
     })
+}
+
+
+function initializeData(travelerData, tripsData) {
+  travelers = travelerData.map(traveler => new Traveler(traveler));
+  trips = tripsData.map(trip => new Trip(trip));
+  const travelerID = getRandomTraveler(travelers)
+  console.log(currentTravelerID)
+  travelerRepo = new TravelerRepo(travelers)
 }
 
 function getRandomTraveler(array) {
@@ -22,11 +34,7 @@ function getRandomTraveler(array) {
   if (randomTraveler) {
     return randomTraveler 
   } else {
-    randomTraveler ++
+    randomTraveler ++;
     return randomTraveler
   }
-}
-function initializeData(travelerData, tripsData) {
-  travelers = travelerData.map(traveler => new Traveler(traveler));
-  trips = tripsData.map(trip => new Trip(trip));
 }
