@@ -1,10 +1,13 @@
 import Traveler from './classes/Traveler';
 import Trip from './classes/Trip';
+import TravelRepo from './classes/TravelRepo';
 import domUpdates from './DOM-updates';
 import {fetchData, postData} from './apiCalls'
 
 let travelers;
 let trips;
+let travelRepo;
+let currentTraveler;
 
 //querySelectors
 
@@ -25,8 +28,10 @@ function initializeData(travelerData, tripsData) {
   travelers = travelerData.map(traveler => new Traveler(traveler));
   trips = tripsData.map(trip => new Trip(trip));
   const travelerID = getRandomTraveler(travelers)
-  console.log(currentTravelerID)
-  travelerRepo = new TravelerRepo(travelers)
+  console.log(travelerID)
+  travelRepo = new TravelRepo(travelers, trips);
+  currentTraveler = travelRepo.findCurrentTraveler(travelerID)
+  console.log(currentTraveler)
 }
 
 function getRandomTraveler(array) {
