@@ -29,12 +29,12 @@ function initializeData(travelerData, tripsData) {
   travelers = travelerData.map(traveler => new Traveler(traveler));
   trips = tripsData.map(trip => new Trip(trip));
   const travelerID = getRandomTraveler(travelers)
-  console.log(trips)
+  console.log(travelerID)
   travelRepo = new TravelRepo(travelers, trips);
   currentTraveler = travelRepo.findCurrentTraveler(travelerID)
-//   console.log(currentTraveler)
+  console.log(currentTraveler)
   currentTrips = travelRepo.getTripsForCurrentTraveler(travelerID)
-//   console.log(currentTrips)
+  console.log(currentTrips)
 }
 
 function getRandomTraveler(array) {

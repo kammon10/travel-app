@@ -12,8 +12,7 @@ class TravelRepo {
   }
 
   getTripsForCurrentTraveler(id) {
-    const trips = this.trips.map(trip => trip.userId === id)
-    // console.log(trips[0].userID)
+    const trips = this.trips.filter(trip => trip.userID === id)
     return trips
   }
 }
