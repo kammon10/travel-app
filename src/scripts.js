@@ -8,6 +8,7 @@ let travelers;
 let trips;
 let travelRepo;
 let currentTraveler;
+let currentTrips;
 
 //querySelectors
 
@@ -26,15 +27,14 @@ function fetchAllData() {
 
 function initializeData(travelerData, tripsData) {
   travelers = travelerData.map(traveler => new Traveler(traveler));
-  trips = tripsData.map(trip => console.log('trip', trip));
-//   console.log(tripsData)
-  console.log(trips[0].name)
-
+  trips = tripsData.map(trip => new Trip(trip));
   const travelerID = getRandomTraveler(travelers)
+  console.log(trips)
   travelRepo = new TravelRepo(travelers, trips);
   currentTraveler = travelRepo.findCurrentTraveler(travelerID)
-  console.log(currentTraveler)
-  travelRepo.getTripsForCurrentTraveler(travelerID)
+//   console.log(currentTraveler)
+  currentTrips = travelRepo.getTripsForCurrentTraveler(travelerID)
+//   console.log(currentTrips)
 }
 
 function getRandomTraveler(array) {
