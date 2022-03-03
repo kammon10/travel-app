@@ -4,7 +4,8 @@ import Trip from './classes/Trip';
 import TravelRepo from './classes/TravelRepo';
 import domUpdates from './DOM-updates';
 import {fetchData, postData} from './apiCalls'
-import Destination from './classes/Destination'
+import Destination from './classes/Destination';
+import utilities from './utilities';
 
 let travelers;
 let trips;
@@ -35,7 +36,7 @@ function initializeData(travelerData, tripsData, destinationsData) {
   const travelerID = getRandomTraveler(travelers)
   console.log(travelerID)
   travelRepo = new TravelRepo(travelers, trips, destinations);
-  currentTraveler = travelRepo.findCurrentTraveler(travelerID)
+  currentTraveler = travelRepo.getCurrentTraveler(travelerID)
   console.log(currentTraveler)
   currentTrips = travelRepo.getTripsForCurrentTraveler(travelerID)
   console.log(currentTrips)
@@ -53,14 +54,39 @@ function getRandomTraveler(array) {
 }
 
 function updateDashboard() {
-  travelRepo.getTotalSpentPerTraveler();
-  displayTrips();
+  updateTrips();
+  updateTotalSpent()
 }
 
-function displayTotalSpent() {
+function updateTotalSpent() {
+  const total = travelRepo.getTotalSpentPerTraveler();
+  domUpdates.displayTotalSpent(total);
  
 }
 
-function displayTrips() {
-
+function updateTrips() {
+  trips = currentTraveler.trips;
+  sortTrips(trips);
 }
+
+function sortTrips(trips) {
+  let year = utilities.date().split('/')[0];    
+  let month = utilities.date().split('/')[1];
+  let day = utilities.date().split('/')[2];
+  let pastTrips = trips
+  pastTrips.forEach(trip => {
+    let ty = trip.date.split('/')[0];
+    let td = trip.date.split('/')[2];
+    let tm = trip.date.split('/')[1];
+    if ((ty === year && tm > month) || (ty === year && tm === month && td > day)) {
+      const dest = travelRepo.getDestinationForTrip(trip.id)
+      const futureTrip = pastTrips.splice(trip, 1)
+      domUpdates.displayFutureTrips(futureTrip, dest)
+    }
+  });
+  domUpdates.displayPastTrips(pastTrips)
+}
+//conditions to move trips out of past:
+//year is the same but month is greater
+//year and month are the same but day is greater
+

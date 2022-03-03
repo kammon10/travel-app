@@ -6,10 +6,19 @@ class TravelRepo {
     this.destinations = allDestinations;
   }
 
-  findCurrentTraveler(id) {
+  getCurrentTraveler(id) {
     const travelerInfo = this.travelers.find(traveler => traveler.id === id)
     this.currentTraveler = travelerInfo
     return travelerInfo
+  }
+
+  getDestinationForTrip(id) {
+    const dest = this.destinations.reduce((acc, dest) => {
+      if (id === dest.id) {
+        acc = dest.destination
+      }
+    }, '')
+    return dest
   }
 
   getTripsForCurrentTraveler(id) {
@@ -19,10 +28,6 @@ class TravelRepo {
   }
 
   getTotalSpentPerTraveler() {
-    //match destinationId with currentUser.tripdestination id
-    // multiply number of travelers by flightCostPerPerson and lodgingCostPerDay by trip.duation
-    //return total
-
     const total = this.currentTraveler.trips.reduce((acc, trip) => {
       this.destinations.forEach(dest => {
         if (dest.id === trip.destinationID) {
