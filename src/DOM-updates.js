@@ -8,27 +8,27 @@ const domUpdates = {
     totalSpent.innerText = `You've spent $${total}`
   },
 
-  displayPastTrips(trips) {
-    const pastTrips = document.querySelector('.past-trips');
-    trips.forEach(trip => pastTrips.innerHTML += `
+  displayPastTrips(trip, dest) {
+    const pastTrips = document.querySelector('.past-trips-cards');
+    pastTrips.innerHTML += `
      <div>
        <p>Date: ${trip.date}</p>
-       <p>Destination:</p>
+       <p>Destination: ${dest}</p>
        <p>Duration: ${trip.duration} days</p>
        </div>
-    `);
+    `;
   },
 
   displayFutureTrips(trip, dest) {
-    const futureTrips = document.querySelector('.future-trips');
+    const futureTrips = document.querySelector('.future-trips-cards');
     futureTrips.innerHTML += `
-     <div>
+     <div class="trip">
      <p>Date: ${trip.date}</p>
      <p>Destination: ${dest}</p>
      <p>Duration: ${trip.duration} days</p>
      </div>
     `
-  }
+  },
 
 }
 

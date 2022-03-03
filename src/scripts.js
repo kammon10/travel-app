@@ -6,6 +6,7 @@ import domUpdates from './DOM-updates';
 import {fetchData, postData} from './apiCalls'
 import Destination from './classes/Destination';
 import utilities from './utilities';
+import './CSS/base.scss'
 
 let travelers;
 let trips;
@@ -32,14 +33,13 @@ function fetchAllData() {
 function initializeData(travelerData, tripsData, destinationsData) {
   travelers = travelerData.map(traveler => new Traveler(traveler));
   trips = tripsData.map(trip => new Trip(trip));
-  destinations = destinationsData.map(dest => new Destination(dest))
+  destinations = destinationsData.map(dest => new Destination(dest));
   const travelerID = getRandomTraveler(travelers)
   console.log(travelerID)
   travelRepo = new TravelRepo(travelers, trips, destinations);
   currentTraveler = travelRepo.getCurrentTraveler(travelerID)
   console.log(currentTraveler)
   currentTrips = travelRepo.getTripsForCurrentTraveler(travelerID)
-  console.log(currentTrips)
   updateDashboard()
 }
 
@@ -74,19 +74,27 @@ function sortTrips(trips) {
   let month = utilities.date().split('/')[1];
   let day = utilities.date().split('/')[2];
   let pastTrips = trips
+  
   pastTrips.forEach(trip => {
     let ty = trip.date.split('/')[0];
     let td = trip.date.split('/')[2];
     let tm = trip.date.split('/')[1];
     if ((ty === year && tm > month) || (ty === year && tm === month && td > day)) {
-      const dest = travelRepo.getDestinationForTrip(trip.id)
       const futureTrip = pastTrips.splice(trip, 1)
+      const dest = travelRepo.getDestinationForTrip(trip.id)
       domUpdates.displayFutureTrips(futureTrip, dest)
     }
   });
-  domUpdates.displayPastTrips(pastTrips)
+  pastTrips.forEach(trip => {
+    const pastDest = travelRepo.getDestinationForTrip(trip.id)
+    domUpdates.displayPastTrips(trip, pastDest)
+  });
 }
 //conditions to move trips out of past:
 //year is the same but month is greater
 //year and month are the same but day is greater
+
+//getting destination for past trips:
+//forEach trip, match the trip id to the destination id and return the dest.
+//pass in trip and dest into the domUpdates file.
 

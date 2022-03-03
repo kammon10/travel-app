@@ -13,12 +13,8 @@ class TravelRepo {
   }
 
   getDestinationForTrip(id) {
-    const dest = this.destinations.reduce((acc, dest) => {
-      if (id === dest.id) {
-        acc = dest.destination
-      }
-    }, '')
-    return dest
+    const findDest = this.destinations.find(dest => dest.id === id)
+    return findDest
   }
 
   getTripsForCurrentTraveler(id) {
