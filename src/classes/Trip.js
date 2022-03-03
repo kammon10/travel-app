@@ -1,13 +1,15 @@
 class Trip {
-  constuctor(object) {
-    this.id = object.id;
-    this.userID = object.userID;
-    this.destinationID = object.destinationID;
-    this.travelers = object.travelers;
-    this.date = object.date;
-    this.duration = object.duration;
-    this.status = object.status;
-    this.suggestedActivities = object.suggestedActivities;
+  constructor(input) {
+    this.id = input.id;
+    console.log(input)
+    this.userID = input.userID;
+    this.date = input.date
+    this.destinationID = input.destinationID;
+    this.travelers = input.travelers;
+    this.date = input.date;
+    this.duration = input.duration;
+    this.status = input.status;
+    this.suggestedActivities = input.suggestedActivities;
   }
 }
 

@@ -26,12 +26,15 @@ function fetchAllData() {
 
 function initializeData(travelerData, tripsData) {
   travelers = travelerData.map(traveler => new Traveler(traveler));
-  trips = tripsData.map(trip => new Trip(trip));
+  trips = tripsData.map(trip => console.log('trip', trip));
+//   console.log(tripsData)
+  console.log(trips[0].name)
+
   const travelerID = getRandomTraveler(travelers)
-  console.log(travelerID)
   travelRepo = new TravelRepo(travelers, trips);
   currentTraveler = travelRepo.findCurrentTraveler(travelerID)
   console.log(currentTraveler)
+  travelRepo.getTripsForCurrentTraveler(travelerID)
 }
 
 function getRandomTraveler(array) {

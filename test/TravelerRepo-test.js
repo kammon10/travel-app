@@ -1,2 +1,6 @@
 import {expect} from 'chai';
-import TravelerRepo from '../src/classes/TravelRepo'
+import TravelRepo from '../src/classes/TravelRepo'
+
+describe('TravelRepo', () => {
+  
+})

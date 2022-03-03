@@ -1,19 +1,18 @@
 import { expect } from 'chai';
 import Traveler from '../src/classes/Traveler'
+import testData from './test-data';
 
 
 
 describe('Traveler', () => {
 
   let traveler;
-  const inputObject = {
-    "id": 1,
-    "name": "Ham Leadbeater",
-    "travelerType": "relaxer",
-  }
+  let data;
+  
 
   beforeEach(() => {
-    traveler = new Traveler(inputObject)
+    data =  testData.travelerData[0]
+    traveler = new Traveler(data)
   });
 
   it('should be a function', () => {
