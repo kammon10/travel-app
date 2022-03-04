@@ -25,20 +25,21 @@
       <section class="book-trip-page hidden">
         <form>
           <div>
-            <label for="start">Start date:</label>
-            <input type="date" id="start"
-            value="" min="" max="2023-12-31">
+            <label for="start">Depart Date:</label>
+            <input class="depart-date" type="date" id="start"
+            value="" min="" max="2023-12-31" required>
             <label for="end">Return date:</label>
-            <input type="date" id="end"
-            value="" min="" max="2023-12-31">
+            <input class="return-date" type="date" id="end"
+            value="" min="" max="2023-12-31" required>
           <!-- set min value as start date -->
           </div>
-            <label for="destination">Select destinaton</label>
-            <select class="destination-dropdown" id="destination">
-            <!-- add option values in innerHTML -->
+            <label for="destination">Destinaton</label>
+            <select class="destination-dropdown" id="destination" required>
             </select>
+            <label for="travelers">Travelers</label>
+            <input class="travelers" type="number" id="travelers" min="1" max="30" required>
           <div>
-            <p>total cost</p>
+            <p class="total-cost-request">total cost</p>
             <button class="request-trip-btn">request trip</button>
           </div>
         </form>

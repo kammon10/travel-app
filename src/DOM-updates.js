@@ -11,7 +11,7 @@ const domUpdates = {
 
   displayTotalSpent(total) {
     const totalSpent = document.querySelector('.total-spent')
-    totalSpent.innerText = `You've spent $${total}`
+    totalSpent.innerText = `You've spent $${total} this year`
   },
 
   displayPastTrips(trip, dest) {
@@ -42,10 +42,20 @@ const domUpdates = {
     <div class="card">
      <p>Date: ${trip.date}</p>
      <p>Destination: ${dest}</p>
+     <p>Travelers: ${trip.travelers}
      <p>Duration: ${trip.duration} days</p>
      </div>
     `
-  }
+  },
+
+  addDestToForm(destinations) {
+    const destinationDropdown = document.querySelector('.destination-dropdown')
+    destinations.forEach(dest => {
+      destinationDropdown.innerHTML += `
+      <option value="${dest}">${dest}</option
+      `
+    })
+  },
 
 }
 

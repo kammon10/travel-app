@@ -16,9 +16,22 @@ let currentTraveler;
 let currentTrips;
 
 //querySelectors
+const bookNewTripBtn = document.querySelector('.book-a-trip-btn');
+const formPage = document.querySelector('.book-trip-page');
+const displayTripsPage = document.querySelector('.display-all-trips');
+const departDateInput = document.querySelector('.depart-date');
+const returnDateInput = document.querySelector('.return-date');
+const destinationInput = document.querySelector('.destination-dropdown');
+const travelersInput = document.querySelector('.travelers');
+const totalCostEst = document.querySelector('.total-cost-request');
+const submitRequestBtn = document.querySelector('.request-trip-btn');
+
 
 //eventListeners
-window.addEventListener('load', fetchAllData)
+window.addEventListener('load', fetchAllData);
+bookNewTripBtn.addEventListener('click', displayForm);
+submitRequestBtn.addEventListener('click', function(event) {
+  submitRequest(event)})
 
 
 //functions
@@ -54,8 +67,8 @@ function getRandomTraveler(array) {
 
 function updateDashboard() {
   updateGreetingMessage();
-  updateTrips();
   updateTotalSpent();
+  updateTrips();
 }
 
 function updateGreetingMessage() {
@@ -85,7 +98,7 @@ function sortTrips(trips) {
   
     if (trip.status === 'pending') {
       const pendingTrip = pastTrips.splice(trip, 1)
-      const pendingDest = travelRepo.getDestinationForTrip(trip.destinationID)
+      const pendingDest = travelRepo.getDestinationForTrip(trip.destinationID).destination
       domUpdates.displayPendingTrips(pendingTrip[0], pendingDest)
     } else if ((ty >= year && tm >= month && trip.status === 'approved') || (ty >= year && tm >= month && td > day && trip.status === 'approved')) {
       const futureTrip = pastTrips.splice(trip, 1)
@@ -95,9 +108,63 @@ function sortTrips(trips) {
       pastTrips.forEach(trip => {
         const pastDest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
         domUpdates.displayPastTrips(trip, pastDest);
-      })
+      });
     }
   });
+}
+
+function displayForm() {
+  hide([displayTripsPage]);
+  show([formPage]);
+  // setMinDates()
+  getDestinationsForForm()
+}
+
+function getDestinationsForForm() {
+  const allDest = travelRepo.destinations.map(dest => dest.destination)
+  domUpdates.addDestToForm(allDest)
+  utilities.travelID()
+}
+
+//create a new trip to be displayed in the pending trips section
+// create object and pass it into the domUpdate.displayPendingTrips(trip, dest)
+function submitRequest(e) {
+  e.preventDefault();
+
+  const newRequest = {
+    id: utilities.travelID(),
+    userID: currentTraveler.id,
+    date: departDateInput.value.split('-').join('/'),
+    destinationID: travelRepo.getDestByName(destinationInput.value),
+    travelers: travelersInput.value,
+    duration: findTripDuration(departDateInput.value, returnDateInput.value),
+    status: 'pending',
+  }
+  console.log(newRequest)
+  domUpdates.displayPendingTrips(newRequest, destinationInput.value)
+}
+
+function findTripDuration(startDate, endDate) {
+  const date1 = new Date(startDate);
+  const date2 = new Date(endDate);
+  const oneDay = 1000 * 60 * 60 * 24;
+  const changeInTime = date2.getTime() - date1.getTime()
+  const totalDays = Math.round(changeInTime / oneDay);
+  return totalDays
+}
+
+
+// function setMinDates() {
+//   const MinDepart = document.querySelector('.departDate').min = utilities.date()
+//   document.querySelector('.return-date').min;
+// }
+
+function hide(input) {
+  input.forEach(el => el.classList.add('hidden'));
+}
+
+function show(input) {
+  input.forEach(el => el.classList.remove('hidden'))
 }
 
 //conditions to move trips out of past:
@@ -107,4 +174,3 @@ function sortTrips(trips) {
 //getting destination for past trips:
 //forEach trip, match the trip id to the destination id and return the dest.
 //pass in trip and dest into the domUpdates file.
-

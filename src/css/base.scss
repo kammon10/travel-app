@@ -8,6 +8,7 @@ body {
 
 .main-display {
   display: flex;
+  justify-content: flex-end
 
 }
 
@@ -34,7 +35,7 @@ button {
   background-color: green;
 }
 
-.display-all-trips {
+.display-all-trips, .book-trip-page {
   border: 2px solid green;
   padding: 50px 90px 50px 90px;
 }
@@ -59,6 +60,7 @@ button {
 .pending-trips {
 border: 2px solid white;
 min-width: 30vw;
+max-width: 30vw;
 }
 
 .card {

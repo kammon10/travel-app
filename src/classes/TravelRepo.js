@@ -1,3 +1,4 @@
+import utilities from '../utilities';
 class TravelRepo {
   constructor(allTravelers, allTrips, allDestinations) {
     this.travelers = allTravelers;
@@ -17,16 +18,24 @@ class TravelRepo {
     return findDest
   }
 
+  getDestByName(dest) {
+    const findID = this.destinations.find(dest => dest.destination === dest)
+    return findID
+  }
+
   getTripsForCurrentTraveler(id) {
     const trips = this.trips.filter(trip => trip.userID === id)
     this.currentTraveler.trips = trips
     return trips
   }
 
+  //only select the trips === this year
   getTotalSpentPerTraveler() {
+    let year = utilities.date().split('/')[0];
     const total = this.currentTraveler.trips.reduce((acc, trip) => {
+      let ty = trip.date.split('/')[0]
       this.destinations.forEach(dest => {
-        if (dest.id === trip.destinationID) {
+        if ((dest.id === trip.destinationID) && (ty >= year)) {
           acc += dest.lodgingCostPerDay * trip.duration;
           acc += dest.flightCostPerPerson * trip.travelers;
         }

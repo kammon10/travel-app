@@ -8,6 +8,14 @@ const utilities = {
     let currentDate = `${yyyy}/${mm}/${dd}`;
     return currentDate;
   },
+
+  travelID() {
+    let date = new Date()
+    let id = date.getTime().toString().split('').splice(10, 3).join('')
+    return id
+  }
+
+
 }
 
 export default utilities;
