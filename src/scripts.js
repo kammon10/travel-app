@@ -54,8 +54,13 @@ function getRandomTraveler(array) {
 }
 
 function updateDashboard() {
+  updateGreetingMessage();
   updateTrips();
-  updateTotalSpent()
+  updateTotalSpent();
+}
+
+function updateGreetingMessage() {
+  domUpdates.displayGreeting(currentTraveler.name);
 }
 
 function updateTotalSpent() {
@@ -74,20 +79,23 @@ function sortTrips(trips) {
   let month = utilities.date().split('/')[1];
   let day = utilities.date().split('/')[2];
   let pastTrips = trips
+  console.log(pastTrips)
   
   pastTrips.forEach(trip => {
     let ty = trip.date.split('/')[0];
     let td = trip.date.split('/')[2];
     let tm = trip.date.split('/')[1];
-    if ((ty === year && tm > month) || (ty === year && tm === month && td > day)) {
+    console.log(ty)
+    console.log(year)
+    if ((ty >= year && tm >= month) || (ty >= year && tm >= month && td > day)) {
       const futureTrip = pastTrips.splice(trip, 1)
-      const dest = travelRepo.getDestinationForTrip(trip.id)
-      domUpdates.displayFutureTrips(futureTrip, dest)
+      const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
+      domUpdates.displayFutureTrips(futureTrip[0], dest);
     }
   });
   pastTrips.forEach(trip => {
-    const pastDest = travelRepo.getDestinationForTrip(trip.id)
-    domUpdates.displayPastTrips(trip, pastDest)
+    const pastDest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
+    domUpdates.displayPastTrips(trip, pastDest);
   });
 }
 //conditions to move trips out of past:

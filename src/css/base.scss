@@ -51,16 +51,20 @@ button {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  min-width: 50vw;
-  max-width: 50vw;
+  min-width: 60vw;
+  max-width: 60vw;
+  border-radius: 25px;
 }
 
 .pending-trips {
-
+border: 2px solid white;
+min-width: 30vw;
 }
 
-.trips {
+.card {
   border: 1px solid yellow;
+  padding: 10px;
+  margin: 10px;
 }
 
 .hidden {
