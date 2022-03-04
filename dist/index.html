@@ -2,46 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Webpack Starter Kit</title>
 </head>
 <body>
   <section class="login-page"></section>
   <section>
     <div class="header-homepage">
-      <h3>total spent</h3>
-      <h3>greeting</h3>
+      <h3 class="total-spent">total spent</h3>
+      <h3 class="greeting-js">greeting</h3>
       <button class="book-a-trip-btn">book a trip</button>
 
     </div>
-    <div class="body">
+    <div class="main-display">
       <section class="display-all-trips">
-        <div class="upcoming-trips"></div>
-        <div class="past-trips"></div>
+        <h3 class="card-header">your upcoming trips</h3>
+        <div class="future-trips-cards">
+        </div>
+        <h3 class="card-header">your past trips</h3>
+        <div class="past-trips-cards">
+        </div>
       </section>
       <section class="book-trip-page hidden">
         <form>
           <div>
-            <label for="start">Start date:</label>
-            <input type="date" id="start"
-            value="" min="" max="2023-12-31">
+            <label for="start">Depart Date:</label>
+            <input class="depart-date" type="date" id="start"
+            value="" min="" max="2023-12-31" required>
             <label for="end">Return date:</label>
-            <input type="date" id="end"
-            value="" min="" max="2023-12-31">
+            <input class="return-date" type="date" id="end"
+            value="" min="" max="2023-12-31" required>
           <!-- set min value as start date -->
           </div>
-            <label for="destination">Select destinaton</label>
-            <select class="destination-dropdown" id="destination">
-            <!-- add option values in innerHTML -->
+            <label for="destination">Destinaton</label>
+            <select class="destination-dropdown" id="destination" required>
             </select>
+            <label for="travelers">Travelers</label>
+            <input class="travelers" type="number" id="travelers" min="1" max="30" required>
           <div>
-            <p>total cost</p>
+            <p class="total-cost-request">total cost</p>
             <button class="request-trip-btn">request trip</button>
           </div>
         </form>
       </section>
-      <section class="pending-trips"></section>
+      <section class="pending-trips">
+        <h3 class="card-header">you have no pending trips</h3>
+        <div class="pending-trips-cards"></div>
+      </section>
     </div>
   </section>
   

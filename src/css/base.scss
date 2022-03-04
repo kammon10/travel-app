@@ -1,9 +1,15 @@
 /* This is an example of how to import a partial scss file*/
-@import '_variables';
+@import './_variables';
 
 body {
   color: white;
   background: $primary-background;
+}
+
+.main-display {
+  display: flex;
+  justify-content: flex-end
+
 }
 
 .header-homepage {
@@ -26,7 +32,41 @@ button {
   height:40px;
   border: none;
   color: white;
-  background-color: green
+  background-color: green;
+}
+
+.display-all-trips, .book-trip-page {
+  border: 2px solid green;
+  padding: 50px 90px 50px 90px;
+}
+
+.card-header {
+ display: flex;
+ justify-content: center;
+}
+
+.past-trips-cards, .future-trips-cards {
+  border: 1px solid black;
+  color: #33312e;
+  background-color: #e3d2a8;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-width: 60vw;
+  max-width: 60vw;
+  border-radius: 25px;
+}
+
+.pending-trips {
+border: 2px solid white;
+min-width: 30vw;
+max-width: 30vw;
+}
+
+.card {
+  border: 1px solid yellow;
+  padding: 10px;
+  margin: 10px;
 }
 
 .hidden {
