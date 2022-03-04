@@ -131,7 +131,7 @@ function getDestinationsForForm() {
 function submitRequest(e) {
   e.preventDefault();
 
-  const newRequest = {
+  const newTripRequest = {
     id: utilities.travelID(),
     userID: currentTraveler.id,
     date: departDateInput.value.split('-').join('/'),
@@ -140,8 +140,8 @@ function submitRequest(e) {
     duration: findTripDuration(departDateInput.value, returnDateInput.value),
     status: 'pending',
   }
-  console.log(newRequest)
-  domUpdates.displayPendingTrips(newRequest, destinationInput.value)
+  travelRepo.getCostForTrip(newTripRequest)
+  domUpdates.displayPendingTrips(newTripRequest, destinationInput.value)
 }
 
 function findTripDuration(startDate, endDate) {

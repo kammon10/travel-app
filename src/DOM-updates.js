@@ -44,6 +44,7 @@ const domUpdates = {
      <p>Destination: ${dest}</p>
      <p>Travelers: ${trip.travelers}
      <p>Duration: ${trip.duration} days</p>
+     <p>Pending</p>
      </div>
     `
   },

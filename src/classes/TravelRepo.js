@@ -19,8 +19,8 @@ class TravelRepo {
   }
 
   getDestByName(dest) {
-    const findID = this.destinations.find(dest => dest.destination === dest)
-    return findID
+    const getDest = this.destinations.find(dest => dest.destination === dest)
+    return getDest
   }
 
   getTripsForCurrentTraveler(id) {
@@ -43,6 +43,11 @@ class TravelRepo {
       return acc
     }, 0);
     return total
+  }
+
+  getCostForTrip() {
+    //pass in object
+    //
   }
 }
 
