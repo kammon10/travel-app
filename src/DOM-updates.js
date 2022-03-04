@@ -36,6 +36,17 @@ const domUpdates = {
     `
   },
 
+  displayPendingTrips(trip, dest) {
+    const pendingTrips = document.querySelector('.pending-trips-cards');
+    pendingTrips.innerHTML += `
+    <div class="card">
+     <p>Date: ${trip.date}</p>
+     <p>Destination: ${dest}</p>
+     <p>Duration: ${trip.duration} days</p>
+     </div>
+    `
+  }
+
 }
 
 export default domUpdates;

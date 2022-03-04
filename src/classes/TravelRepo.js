@@ -13,9 +13,7 @@ class TravelRepo {
   }
 
   getDestinationForTrip(id) {
-    console.log('id:', id)
     const findDest = this.destinations.find(dest => dest.id === id)
-    console.log('dest:', findDest)
     return findDest
   }
 

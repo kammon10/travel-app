@@ -35,7 +35,6 @@ function initializeData(travelerData, tripsData, destinationsData) {
   trips = tripsData.map(trip => new Trip(trip));
   destinations = destinationsData.map(dest => new Destination(dest));
   const travelerID = getRandomTraveler(travelers)
-  console.log(travelerID)
   travelRepo = new TravelRepo(travelers, trips, destinations);
   currentTraveler = travelRepo.getCurrentTraveler(travelerID)
   console.log(currentTraveler)
@@ -64,9 +63,9 @@ function updateGreetingMessage() {
 }
 
 function updateTotalSpent() {
-  const total = travelRepo.getTotalSpentPerTraveler();
-  domUpdates.displayTotalSpent(total);
- 
+  const total = travelRepo.getTotalSpentPerTraveler()
+  const totalPlusAgient = total + (total * .1)
+  domUpdates.displayTotalSpent(totalPlusAgient);
 }
 
 function updateTrips() {
@@ -79,25 +78,28 @@ function sortTrips(trips) {
   let month = utilities.date().split('/')[1];
   let day = utilities.date().split('/')[2];
   let pastTrips = trips
-  console.log(pastTrips)
-  
   pastTrips.forEach(trip => {
     let ty = trip.date.split('/')[0];
     let td = trip.date.split('/')[2];
     let tm = trip.date.split('/')[1];
-    console.log(ty)
-    console.log(year)
-    if ((ty >= year && tm >= month) || (ty >= year && tm >= month && td > day)) {
+  
+    if (trip.status === 'pending') {
+      const pendingTrip = pastTrips.splice(trip, 1)
+      const pendingDest = travelRepo.getDestinationForTrip(trip.destinationID)
+      domUpdates.displayPendingTrips(pendingTrip[0], pendingDest)
+    } else if ((ty >= year && tm >= month && trip.status === 'approved') || (ty >= year && tm >= month && td > day && trip.status === 'approved')) {
       const futureTrip = pastTrips.splice(trip, 1)
       const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
       domUpdates.displayFutureTrips(futureTrip[0], dest);
+    } else {
+      pastTrips.forEach(trip => {
+        const pastDest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
+        domUpdates.displayPastTrips(trip, pastDest);
+      })
     }
   });
-  pastTrips.forEach(trip => {
-    const pastDest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
-    domUpdates.displayPastTrips(trip, pastDest);
-  });
 }
+
 //conditions to move trips out of past:
 //year is the same but month is greater
 //year and month are the same but day is greater
