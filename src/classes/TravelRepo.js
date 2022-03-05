@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import utilities from '../utilities';
 class TravelRepo {
   constructor(allTravelers, allTrips, allDestinations) {
@@ -18,8 +19,8 @@ class TravelRepo {
     return findDest
   }
 
-  getDestByName(dest) {
-    const getDest = this.destinations.find(dest => dest.destination === dest)
+  getDestByName(destination) {
+    const getDest = this.destinations.find(dest => dest.destination === destination)
     return getDest
   }
 
@@ -45,9 +46,13 @@ class TravelRepo {
     return total
   }
 
-  getCostForTrip() {
+  getCostForTrip(obj) {
     //pass in object
-    //
+    //iterate through the destinations array and match the destination
+    const theDest = this.destinations.find(dest => dest.id === obj.destinationID)
+    const estimatedCost = (obj.duration * theDest.lodgingCostPerDay) + (obj.travelers * theDest.flightCostPerPerson);
+    const total = estimatedCost + (estimatedCost * .1)  
+    return total
   }
 }
 

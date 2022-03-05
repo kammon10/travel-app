@@ -24,12 +24,15 @@ const returnDateInput = document.querySelector('.return-date');
 const destinationInput = document.querySelector('.destination-dropdown');
 const travelersInput = document.querySelector('.travelers');
 const totalCostEst = document.querySelector('.total-cost-request');
+const checkPriceBtn = document.querySelector('.check-price-btn')
 const submitRequestBtn = document.querySelector('.request-trip-btn');
 
 
 //eventListeners
 window.addEventListener('load', fetchAllData);
 bookNewTripBtn.addEventListener('click', displayForm);
+checkPriceBtn.addEventListener('click', function(event) {
+  displayCost(event)})
 submitRequestBtn.addEventListener('click', function(event) {
   submitRequest(event)})
 
@@ -125,22 +128,33 @@ function getDestinationsForForm() {
   domUpdates.addDestToForm(allDest)
   utilities.travelID()
 }
+/////////////stopped at this function, need to connect to display estimated cost before submiting a new request/////////////////////
+function displayCost(e) {
+  e.preventDefault()
+  const duration = findTripDuration(departDateInput.value, returnDateInput.value);
+  console.log('days:', duration)
+  const destination = travelRepo.getDestByName(destinationInput.value)
+  console.log('dest', destination)
+  const noOfTravelers = travelersInput.value;
+  console.log('travelers:', noOfTravelers)
+}
 
 //create a new trip to be displayed in the pending trips section
 // create object and pass it into the domUpdate.displayPendingTrips(trip, dest)
+
+//think about refactoring this function
 function submitRequest(e) {
   e.preventDefault();
-
+  const destID = travelRepo.getDestByName(destinationInput.value).id;
   const newTripRequest = {
     id: utilities.travelID(),
     userID: currentTraveler.id,
     date: departDateInput.value.split('-').join('/'),
-    destinationID: travelRepo.getDestByName(destinationInput.value),
+    destinationID: destID,
     travelers: travelersInput.value,
     duration: findTripDuration(departDateInput.value, returnDateInput.value),
     status: 'pending',
   }
-  travelRepo.getCostForTrip(newTripRequest)
   domUpdates.displayPendingTrips(newTripRequest, destinationInput.value)
 }
 
