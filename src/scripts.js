@@ -32,7 +32,7 @@ const greetingMessage = document.querySelector('.greeting-js')
 
 //eventListeners
 window.addEventListener('load', fetchAllData);
-bookNewTripBtn.addEventListener('click', displayForm);
+bookNewTripBtn.addEventListener('click', formView);
 checkPriceBtn.addEventListener('click', function(event) {
   displayCost(event)
 })
@@ -123,7 +123,7 @@ function sortTrips(trips) {
   });
 }
 
-function displayForm() {
+function formView() {
   hide([displayTripsPage, greetingMessage]);
   show([formPage, homePageBtn]);
   // setMinDates()
@@ -181,6 +181,11 @@ function submitRequest(e) {
   const newTripRequest = pendingTripObject()
   domUpdates.displayPendingTrips(newTripRequest, destinationInput.value)
   form.reset();
+  checkPriceBtn.classList.add('disabled')
+  submitRequestBtn.classList.add('disabled')
+  domUpdates.displayTotalCostForTrip('')
+  checkPriceBtn.disabled = false;
+  submitRequestBtn.disabled = false;
 
 }
 
