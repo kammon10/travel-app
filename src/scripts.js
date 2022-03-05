@@ -105,20 +105,17 @@ function sortTrips(trips) {
     let ty = trip.date.split('/')[0];
     let td = trip.date.split('/')[2];
     let tm = trip.date.split('/')[1];
-  
     if (trip.status === 'pending') {
-      const pendingTrip = pastTrips.splice(trip, 1)
-      const pendingDest = travelRepo.getDestinationForTrip(trip.destinationID).destination
-      domUpdates.displayPendingTrips(pendingTrip[0], pendingDest)
-    } else if ((ty >= year && tm >= month && trip.status === 'approved') || (ty >= year && tm >= month && td > day && trip.status === 'approved')) {
+      const futureTrip = pastTrips.splice(trip, 1)
+      const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
+      domUpdates.displayPendingTrips(futureTrip, dest)
+    } else if ((ty >= year && tm > month) || (ty >= year && tm === month && td > day)) {
       const futureTrip = pastTrips.splice(trip, 1)
       const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
       domUpdates.displayFutureTrips(futureTrip[0], dest);
     } else {
-      pastTrips.forEach(trip => {
-        const pastDest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
-        domUpdates.displayPastTrips(trip, pastDest);
-      });
+      const pastDest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
+      domUpdates.displayPastTrips(trip, pastDest);
     }
   });
 }
@@ -184,9 +181,6 @@ function submitRequest(e) {
   checkPriceBtn.classList.add('disabled')
   submitRequestBtn.classList.add('disabled')
   domUpdates.displayTotalCostForTrip('')
-  checkPriceBtn.disabled = false;
-  submitRequestBtn.disabled = false;
-
 }
 
 function findTripDuration(startDate, endDate) {

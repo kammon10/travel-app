@@ -39,7 +39,7 @@ const domUpdates = {
   displayPendingTrips(trip, dest) {
     const pendingTrips = document.querySelector('.pending-trips-cards');
     const pendingCardHeader = document.querySelector('.pending-card-header')
-    pendingCardHeader.innerText = `Your Pending Trips`;
+    sectionHeader.innerText = `Your Pending Trips`;
     pendingTrips.innerHTML += `
     <div class="card">
      <p>Date: ${trip.date}</p>
