@@ -46,11 +46,9 @@ class TravelRepo {
     return total
   }
 
-  getCostForTrip(duration, destination, travelers) {
-    //pass in object
-    //iterate through the destinations array and match the destination
-    const theDest = this.destinations.find(dest => dest.id === destination.id)
-    const estimatedCost = (duration * theDest.lodgingCostPerDay) + (travelers * theDest.flightCostPerPerson);
+  getCostForTrip(trip) {
+    const theDest = this.destinations.find(dest => dest.id === trip.destinationID)
+    const estimatedCost = (trip.duration * theDest.lodgingCostPerDay) + (trip.travelers * theDest.flightCostPerPerson);
     const total = estimatedCost + (estimatedCost * .1)  
     return total
   }

@@ -131,10 +131,8 @@ function getDestinationsForForm() {
 
 function displayCost(e) {
   e.preventDefault()
-  const duration = findTripDuration(departDateInput.value, returnDateInput.value);
-  const destination = travelRepo.getDestByName(destinationInput.value)
-  const noOfTravelers = travelersInput.value;
-  const total = travelRepo.getCostForTrip(duration, destination, noOfTravelers)
+  const trip = pendingTripObject()
+  const total = travelRepo.getCostForTrip(trip)
   domUpdates.displayTotalCostForTrip(total)
 }
 function activateFormButtons() {
@@ -144,13 +142,11 @@ function activateFormButtons() {
     domUpdates.displayTotalCostForTrip('')
     checkPriceBtn.disabled = false;
     bookNewTripBtn.disabled = false;
-
+    pendingTripObject()
   }
 }
 
-//think about refactoring this function
-function submitRequest(e) {
-  e.preventDefault();
+function pendingTripObject() {
   const destID = travelRepo.getDestByName(destinationInput.value).id;
   const newTripRequest = {
     id: utilities.travelID(),
@@ -161,6 +157,13 @@ function submitRequest(e) {
     duration: findTripDuration(departDateInput.value, returnDateInput.value),
     status: 'pending',
   }
+  return newTripRequest
+}
+
+//think about refactoring this function
+function submitRequest(e) {
+  e.preventDefault();
+  const newTripRequest = pendingTripObject()
   domUpdates.displayPendingTrips(newTripRequest, destinationInput.value)
   form.reset();
 
