@@ -23,7 +23,7 @@ const departDateInput = document.querySelector('.depart-date');
 const returnDateInput = document.querySelector('.return-date');
 const destinationInput = document.querySelector('.destination-dropdown');
 const travelersInput = document.querySelector('.travelers');
-const checkPriceBtn = document.querySelector('.check-price-btn')
+const checkPriceBtn = document.querySelector('.check-price-btn');
 const submitRequestBtn = document.querySelector('.request-trip-btn');
 const form = document.querySelector('form');
 
@@ -32,10 +32,12 @@ const form = document.querySelector('form');
 window.addEventListener('load', fetchAllData);
 bookNewTripBtn.addEventListener('click', displayForm);
 checkPriceBtn.addEventListener('click', function(event) {
-  displayCost(event)})
+  displayCost(event)
+})
 submitRequestBtn.addEventListener('click', function(event) {
-  submitRequest(event)})
-  form.addEventListener('change', activateFormButtons)
+  submitRequest(event)
+})
+form.addEventListener('change', activateFormButtons)
 
 
 //functions
@@ -89,6 +91,8 @@ function updateTrips() {
   sortTrips(trips);
 }
 
+//make seperate functions for the date breakdown or
+//or keep this function long?
 function sortTrips(trips) {
   let year = utilities.date().split('/')[0];    
   let month = utilities.date().split('/')[1];
@@ -120,32 +124,35 @@ function displayForm() {
   hide([displayTripsPage]);
   show([formPage]);
   // setMinDates()
-  getDestinationsForForm()
+  getDestinationsForForm();
 }
 
 function getDestinationsForForm() {
-  const allDest = travelRepo.destinations.map(dest => dest.destination)
-  domUpdates.addDestToForm(allDest)
-  utilities.travelID()
+  const allDest = travelRepo.destinations.map(dest => dest.destination);
+  domUpdates.addDestToForm(allDest);
+  utilities.travelID();
 }
 
 function displayCost(e) {
-  e.preventDefault()
-  const trip = pendingTripObject()
-  const total = travelRepo.getCostForTrip(trip)
-  domUpdates.displayTotalCostForTrip(total)
+  e.preventDefault();
+  const trip = pendingTripObject();
+  const total = travelRepo.getCostForTrip(trip);
+  domUpdates.displayTotalCostForTrip(total);
 }
+
 function activateFormButtons() {
   if (departDateInput.value && returnDateInput.value && travelersInput.value && destinationInput.value) {
     checkPriceBtn.classList.remove('disabled')
-    bookNewTripBtn.classList.remove('disabled')
+    submitRequestBtn.classList.remove('disabled')
     domUpdates.displayTotalCostForTrip('')
     checkPriceBtn.disabled = false;
-    bookNewTripBtn.disabled = false;
+    submitRequestBtn.disabled = false;
     pendingTripObject()
   }
 }
 
+//should I make variables for the keys or keep the functions in the 
+//object?
 function pendingTripObject() {
   const destID = travelRepo.getDestByName(destinationInput.value).id;
   const newTripRequest = {
@@ -160,9 +167,9 @@ function pendingTripObject() {
   return newTripRequest
 }
 
-//think about refactoring this function
 function submitRequest(e) {
   e.preventDefault();
+  console.log('here')
   const newTripRequest = pendingTripObject()
   domUpdates.displayPendingTrips(newTripRequest, destinationInput.value)
   form.reset();
