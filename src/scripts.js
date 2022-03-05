@@ -26,6 +26,8 @@ const travelersInput = document.querySelector('.travelers');
 const checkPriceBtn = document.querySelector('.check-price-btn');
 const submitRequestBtn = document.querySelector('.request-trip-btn');
 const form = document.querySelector('form');
+const homePageBtn = document.querySelector('.home-page-btn');
+const greetingMessage = document.querySelector('.greeting-js')
 
 
 //eventListeners
@@ -38,6 +40,7 @@ submitRequestBtn.addEventListener('click', function(event) {
   submitRequest(event)
 })
 form.addEventListener('change', activateFormButtons)
+homePageBtn.addEventListener('click', homePageView)
 
 
 //functions
@@ -121,11 +124,17 @@ function sortTrips(trips) {
 }
 
 function displayForm() {
-  hide([displayTripsPage]);
-  show([formPage]);
+  hide([displayTripsPage, greetingMessage]);
+  show([formPage, homePageBtn]);
   // setMinDates()
   getDestinationsForForm();
 }
+
+function homePageView() {
+  hide([formPage, homePageBtn]);
+  show([displayTripsPage, greetingMessage])
+}
+
 
 function getDestinationsForForm() {
   const allDest = travelRepo.destinations.map(dest => dest.destination);
@@ -169,7 +178,6 @@ function pendingTripObject() {
 
 function submitRequest(e) {
   e.preventDefault();
-  console.log('here')
   const newTripRequest = pendingTripObject()
   domUpdates.displayPendingTrips(newTripRequest, destinationInput.value)
   form.reset();
@@ -184,6 +192,7 @@ function findTripDuration(startDate, endDate) {
   const totalDays = Math.round(changeInTime / oneDay);
   return totalDays
 }
+
 
 
 // function setMinDates() {

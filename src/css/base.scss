@@ -48,6 +48,7 @@ button:hover {
 
 .display-all-trips, .book-trip-page {
   padding: 50px 90px 50px 90px;
+  color: #1a2a6b;
 }
 
 .card-header {
@@ -61,8 +62,7 @@ button:hover {
 }
 
 .past-trips-cards, .future-trips-cards {
-  color: #33312e;
-  background-color: hsl(26, 42%, 88%);
+  border: 7px solid hsl(203, 35%, 63%);
   opacity: .4;
   display: flex;
   justify-content: center;
