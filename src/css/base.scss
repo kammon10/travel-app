@@ -10,7 +10,10 @@ body {
 .main-display {
   display: flex;
   justify-content: flex-end
+}
 
+.header-btn-styling {
+  display: flex;
 }
 
 .check-price-styling {
@@ -41,6 +44,7 @@ button {
   color: black;
   background-color: hsl(26, 42%, 88%);
   cursor: pointer;
+  padding: 10px;
 }
 button:hover {
   background-color:hwb(26 46% 8%)

@@ -5,13 +5,22 @@
   <title>Webpack Starter Kit</title>
 </head>
 <body>
-  <section class="login-page"></section>
-  <section>
+  <section class="login-page-js">
+    <form class="login-form">
+      <input class="username-field" type="text" name="username-field" placeholder="UserName" required>
+      <input class="password-field" type="text" name="password-field" placeholder="Password" required>
+      <button class="login-submit" value="Login" id="login-form-submit">Submit</button>
+    </form>
+  </section>
+  <section class="display-homepage hidden">
     <div class="header-homepage">
       <h3 class="total-spent">total spent</h3>
       <h3 class="greeting-js">greeting</h3>
       <button class="home-page-btn hidden">Home Page</button>
+      <div class="header-btn-styling">
       <button class="book-a-trip-btn">book a trip</button>
+      <button class="log-out-btn">Log Out</button>
+      </div>
     </div>
     <div class="main-display">
       <section class="display-all-trips">
@@ -23,7 +32,7 @@
         </div>
       </section>
       <section class="book-trip-page hidden">
-        <form>
+        <form class="request-trip-form">
           <div>
             <label for="start">Depart Date:</label>
             <input class="depart-date" type="date"

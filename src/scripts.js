@@ -16,6 +16,7 @@ let currentTraveler;
 let currentTrips;
 
 //querySelectors
+
 const bookNewTripBtn = document.querySelector('.book-a-trip-btn');
 const formPage = document.querySelector('.book-trip-page');
 const displayTripsPage = document.querySelector('.display-all-trips');
@@ -25,55 +26,87 @@ const destinationInput = document.querySelector('.destination-dropdown');
 const travelersInput = document.querySelector('.travelers');
 const checkPriceBtn = document.querySelector('.check-price-btn');
 const submitRequestBtn = document.querySelector('.request-trip-btn');
-const form = document.querySelector('form');
+const requestTripForm = document.querySelector('.request-trip-form');
 const homePageBtn = document.querySelector('.home-page-btn');
-const greetingMessage = document.querySelector('.greeting-js')
+const greetingMessage = document.querySelector('.greeting-js');
+const loginPage = document.querySelector('.login-page-js');
+const userName = document.querySelector('.username-field');
+const password = document.querySelector('.password-field');
+const loginBtn = document.querySelector('.login-submit');
+const homePage = document.querySelector('.display-homepage');
+const logOutBtn = document.querySelector('.log-out-btn');
+const loginForm = document.querySelector('.login-form');
 
 
 //eventListeners
-window.addEventListener('load', fetchAllData);
+// window.addEventListener('load', fetchAllData);
 bookNewTripBtn.addEventListener('click', formView);
 checkPriceBtn.addEventListener('click', function(event) {
   displayCost(event)
 })
 submitRequestBtn.addEventListener('click', function(event) {
   submitRequest(event)
+});
+requestTripForm.addEventListener('change', activateFormButtons);
+homePageBtn.addEventListener('click', homePageView);
+loginBtn.addEventListener('click', function(event) {
+  logIn(event)
 })
-form.addEventListener('change', activateFormButtons)
-homePageBtn.addEventListener('click', homePageView)
+logOutBtn.addEventListener('click', logOut)
 
 
 //functions
-function fetchAllData() {
+function logIn(e) {
+  e.preventDefault()
+  
+  let userNameIndex8 = userName.value.charAt(8)
+  let userNameIndex9 = userName.value.charAt(9);
+  if (userNameIndex9 === null) {
+    userNameIndex9 = 0;
+  }
+  let userID = Number(`${userNameIndex8}${userNameIndex9}`);
+  console.log(userName.value)
+  if ( userName.value === `traveler${userID}` && password.value === `travel`) {
+    fetchAllData(userID)
+  }
+}
+
+function fetchAllData(userId) {
   Promise.all([fetchData('travelers'), fetchData('trips'), fetchData('destinations')])
     .then(data => {
-      initializeData(data[0].travelers, data[1].trips, data[2].destinations)
+      initializeData(data[0].travelers, data[1].trips, data[2].destinations, userId)
     })
 }
 
 
-function initializeData(travelerData, tripsData, destinationsData) {
+function initializeData(travelerData, tripsData, destinationsData, id) {
   travelers = travelerData.map(traveler => new Traveler(traveler));
   trips = tripsData.map(trip => new Trip(trip));
   destinations = destinationsData.map(dest => new Destination(dest));
-  const travelerID = getRandomTraveler(travelers)
   travelRepo = new TravelRepo(travelers, trips, destinations);
-  currentTraveler = travelRepo.getCurrentTraveler(travelerID)
-  currentTrips = travelRepo.getTripsForCurrentTraveler(travelerID)
-  updateDashboard()
-}
-
-function getRandomTraveler(array) {
-  let randomTraveler = Math.floor(Math.random() * array.length)
-  if (randomTraveler) {
-    return randomTraveler 
-  } else {
-    randomTraveler ++;
-    return randomTraveler
+  console.log('userID:', id)
+  console.log(travelRepo.travelers.length)
+  if (id > 0 && id <= travelRepo.travelers.length) {
+    currentTraveler = travelRepo.getCurrentTraveler(id)
+    currentTrips = travelRepo.getTripsForCurrentTraveler(id)
+    updateDashboard()
   }
 }
 
+///should I remove this function?////
+
+// function getRandomTraveler(array) {
+//   let randomTraveler = Math.floor(Math.random() * array.length)
+//   if (randomTraveler) {
+//     return randomTraveler 
+//   } else {
+//     randomTraveler ++;
+//     return randomTraveler
+//   }
+// }
+
 function updateDashboard() {
+  homePageView();
   updateGreetingMessage();
   updateTotalSpent();
   updateTrips();
@@ -128,8 +161,14 @@ function formView() {
 }
 
 function homePageView() {
-  hide([formPage, homePageBtn]);
-  show([displayTripsPage, greetingMessage])
+  hide([formPage, homePageBtn, loginPage]);
+  show([homePage, displayTripsPage, greetingMessage])
+}
+
+function logOut() {
+  hide([homePage]);
+  show([loginPage]);
+  loginForm.reset()
 }
 
 
@@ -177,7 +216,7 @@ function submitRequest(e) {
   e.preventDefault();
   const newTripRequest = pendingTripObject()
   domUpdates.displayPendingTrips(newTripRequest, destinationInput.value)
-  form.reset();
+  requestTripForm.reset();
   checkPriceBtn.classList.add('disabled')
   submitRequestBtn.classList.add('disabled')
   domUpdates.displayTotalCostForTrip('')
