@@ -2,8 +2,9 @@
 @import './_variables';
 
 body {
-  color: white;
-  background: $primary-background;
+  color: #c7d4f0;
+  background-image: url("https://images.pexels.com/photos/1955134/pexels-photo-1955134.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+  background-size: cover;
 }
 
 .main-display {
@@ -12,12 +13,18 @@ body {
 
 }
 
+.check-price-styling {
+  display: flex;
+}
 .header-homepage {
   display: flex;
-  border: 2px solid red;
   justify-content: space-between;
   align-items: center;
 
+}
+
+.header-homepage {
+  background-color: #0c1b54;
 }
 
 .header-reservationpage {
@@ -31,12 +38,15 @@ button {
   width: 120px;
   height:40px;
   border: none;
-  color: white;
-  background-color: green;
+  color: black;
+  background-color: hsl(26, 42%, 88%);
+  cursor: pointer;
+}
+button:hover {
+  background-color:hwb(26 46% 8%)
 }
 
 .display-all-trips, .book-trip-page {
-  border: 2px solid green;
   padding: 50px 90px 50px 90px;
 }
 
@@ -45,10 +55,15 @@ button {
  justify-content: center;
 }
 
+
+.disabled {
+  background-color: gray;
+}
+
 .past-trips-cards, .future-trips-cards {
-  border: 1px solid black;
   color: #33312e;
-  background-color: #e3d2a8;
+  background-color: hsl(26, 42%, 88%);
+  opacity: .4;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -64,9 +79,11 @@ max-width: 30vw;
 }
 
 .card {
-  border: 1px solid yellow;
+  color: white;
+  background: #1a2a6b;
   padding: 10px;
   margin: 10px;
+  border-radius: 20px;
 }
 
 .hidden {

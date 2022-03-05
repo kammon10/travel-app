@@ -11,7 +11,6 @@
       <h3 class="total-spent">total spent</h3>
       <h3 class="greeting-js">greeting</h3>
       <button class="book-a-trip-btn">book a trip</button>
-
     </div>
     <div class="main-display">
       <section class="display-all-trips">
@@ -26,7 +25,7 @@
         <form>
           <div>
             <label for="start">Depart Date:</label>
-            <input class="depart-date" type="date" id="start"
+            <input class="depart-date" type="date"
             value="" min="" max="2023-12-31" required>
             <label for="end">Return date:</label>
             <input class="return-date" type="date" id="end"
@@ -39,14 +38,16 @@
             <label for="travelers">Travelers</label>
             <input class="travelers" type="number" id="travelers" min="1" max="30" required>
           <div>
-            <p class="total-cost-request">total cost</p>
-            <button class="check-price-btn">check price</button>
-            <button class="request-trip-btn">request trip</button>
+            <div class="check-price-styling">
+              <button class="check-price-btn disabled" disabled="disabled">check price</button>
+              <p class="total-cost-request"></p>
+            </div>
+            <button class="request-trip-btn disabled" disabled="disabled">request trip</button>
           </div>
         </form>
       </section>
       <section class="pending-trips">
-        <h3 class="card-header">you have no pending trips</h3>
+        <h3 class="pending-card-header">you have no pending trips</h3>
         <div class="pending-trips-cards"></div>
       </section>
     </div>

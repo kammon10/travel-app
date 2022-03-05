@@ -23,9 +23,9 @@ const departDateInput = document.querySelector('.depart-date');
 const returnDateInput = document.querySelector('.return-date');
 const destinationInput = document.querySelector('.destination-dropdown');
 const travelersInput = document.querySelector('.travelers');
-const totalCostEst = document.querySelector('.total-cost-request');
 const checkPriceBtn = document.querySelector('.check-price-btn')
 const submitRequestBtn = document.querySelector('.request-trip-btn');
+const form = document.querySelector('form');
 
 
 //eventListeners
@@ -35,6 +35,7 @@ checkPriceBtn.addEventListener('click', function(event) {
   displayCost(event)})
 submitRequestBtn.addEventListener('click', function(event) {
   submitRequest(event)})
+  form.addEventListener('change', activateFormButtons)
 
 
 //functions
@@ -53,7 +54,6 @@ function initializeData(travelerData, tripsData, destinationsData) {
   const travelerID = getRandomTraveler(travelers)
   travelRepo = new TravelRepo(travelers, trips, destinations);
   currentTraveler = travelRepo.getCurrentTraveler(travelerID)
-  console.log(currentTraveler)
   currentTrips = travelRepo.getTripsForCurrentTraveler(travelerID)
   updateDashboard()
 }
@@ -128,19 +128,25 @@ function getDestinationsForForm() {
   domUpdates.addDestToForm(allDest)
   utilities.travelID()
 }
-/////////////stopped at this function, need to connect to display estimated cost before submiting a new request/////////////////////
+
 function displayCost(e) {
   e.preventDefault()
   const duration = findTripDuration(departDateInput.value, returnDateInput.value);
-  console.log('days:', duration)
   const destination = travelRepo.getDestByName(destinationInput.value)
-  console.log('dest', destination)
   const noOfTravelers = travelersInput.value;
-  console.log('travelers:', noOfTravelers)
+  const total = travelRepo.getCostForTrip(duration, destination, noOfTravelers)
+  domUpdates.displayTotalCostForTrip(total)
 }
+function activateFormButtons() {
+  if (departDateInput.value && returnDateInput.value && travelersInput.value && destinationInput.value) {
+    checkPriceBtn.classList.remove('disabled')
+    bookNewTripBtn.classList.remove('disabled')
+    domUpdates.displayTotalCostForTrip('')
+    checkPriceBtn.disabled = false;
+    bookNewTripBtn.disabled = false;
 
-//create a new trip to be displayed in the pending trips section
-// create object and pass it into the domUpdate.displayPendingTrips(trip, dest)
+  }
+}
 
 //think about refactoring this function
 function submitRequest(e) {
@@ -156,6 +162,8 @@ function submitRequest(e) {
     status: 'pending',
   }
   domUpdates.displayPendingTrips(newTripRequest, destinationInput.value)
+  form.reset();
+
 }
 
 function findTripDuration(startDate, endDate) {
@@ -181,10 +189,12 @@ function show(input) {
   input.forEach(el => el.classList.remove('hidden'))
 }
 
-//conditions to move trips out of past:
-//year is the same but month is greater
-//year and month are the same but day is greater
+///missing a function that checks that all fields are filled.
+//when all fields are filled out the disabled buttons will be activated.
+//when a form is filled out, activate both buttons
+//make a card of the input. pass in the card object 
+//into the function to get cost,
+// if submit request button is clicked, pass the card object
+//into the domUpdats function.
 
-//getting destination for past trips:
-//forEach trip, match the trip id to the destination id and return the dest.
-//pass in trip and dest into the domUpdates file.
+//set an event Listener on the form.////

@@ -38,15 +38,17 @@ const domUpdates = {
 
   displayPendingTrips(trip, dest) {
     const pendingTrips = document.querySelector('.pending-trips-cards');
+    const pendingCardHeader = document.querySelector('.pending-card-header')
+    pendingCardHeader.innerText = `Your Pending Trips`;
     pendingTrips.innerHTML += `
     <div class="card">
      <p>Date: ${trip.date}</p>
      <p>Destination: ${dest}</p>
      <p>Travelers: ${trip.travelers}
      <p>Duration: ${trip.duration} days</p>
-     <p>Pending</p>
+     <p>Status: Pending</p>
      </div>
-    `
+    `;
   },
 
   addDestToForm(destinations) {
@@ -57,6 +59,11 @@ const domUpdates = {
       `
     })
   },
+
+  displayTotalCostForTrip(cost) {
+    const totalCostEst = document.querySelector('.total-cost-request');
+    totalCostEst.innerText = `Price for this trip is $${cost}`
+  }, 
 
 }
 
