@@ -15,6 +15,11 @@ const domUpdates = {
     totalSpent.innerText = `You've spent $${total} this year`
   },
 
+  displayIncome(total) {
+    const profitsThisYear = document.querySelector('.profits-this-year');
+    profitsThisYear.innerText = `This years profits: $${total}`
+  },
+
   displayPastTrips(trip, dest) {
     const pastTrips = document.querySelector('.past-trips-cards');
     pastTrips.innerHTML += `

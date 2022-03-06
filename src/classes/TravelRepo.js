@@ -8,6 +8,25 @@ class TravelRepo {
     this.destinations = allDestinations;
   }
 
+  getTotalIncomeForYear() {
+    let year = utilities.date().split('/')[0];
+    const totalspentByClients = this.trips.reduce((acc, trip) => {
+      let ty = trip.date.split('/')[0]
+      this.destinations.forEach(dest => {
+        if ((dest.id === trip.destinationID) && (ty >= year)) {
+          acc += dest.lodgingCostPerDay * trip.duration;
+          acc += dest.flightCostPerPerson * trip.travelers;
+        }
+      });
+      return acc
+    }, 0)
+    return totalspentByClients
+  }
+
+  getAllUpcomingTrips() {
+    // this.trips.map(trip => trip.)
+  }
+
   getCurrentTraveler(id) {
     const travelerInfo = this.travelers.find(traveler => traveler.id === id)
     this.currentTraveler = travelerInfo
@@ -45,6 +64,8 @@ class TravelRepo {
     }, 0);
     return total
   }
+
+  //forEach traveler. 
 
   getCostForTrip(trip) {
     const theDest = this.destinations.find(dest => dest.id === trip.destinationID)

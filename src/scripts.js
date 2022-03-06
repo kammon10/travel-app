@@ -120,20 +120,8 @@ function initializeUserData(travelerData, tripsData, destinationsData, id) {
   }
 }
 
-///should I remove this function?////
-
-// function getRandomTraveler(array) {
-//   let randomTraveler = Math.floor(Math.random() * array.length)
-//   if (randomTraveler) {
-//     return randomTraveler 
-//   } else {
-//     randomTraveler ++;
-//     return randomTraveler
-//   }
-// }
-
 function updateAgentDashboard() {
-  agencyHomePage();
+  agencyHomePageView();
   updateTotalProfits();
   updateUpcomingTrips();
   updatePendingTrips();
@@ -144,6 +132,17 @@ function updateDashboard() {
   updateGreetingMessage();
   updateTotalSpent();
   updateTrips();
+}
+
+function agencyHomePageView() {
+  hide([homePage, loginPage])
+  show([agentHomePage]);
+}
+
+function updateTotalProfits() {
+  const spentByClients = travelRepo.getTotalIncomeForYear()
+  const income = spentByClients * .1;
+  domUpdates.displayIncome(income)
 }
 
 function updateGreetingMessage() {
