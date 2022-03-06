@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 // import 
+  const submitionNotice = document.querySelector('.submition-notice');
 
 
 const domUpdates = {
@@ -34,6 +35,15 @@ const domUpdates = {
      <p>Duration: ${trip.duration} days</p>
      </div>
     `
+  },
+
+  SubmitTripRequest() {
+    submitionNotice.innerText = `Your trip request has been succesfuly submitted.`
+    setTimeout(this.resetSubmitionNotice, 4000)
+  },
+
+  resetSubmitionNotice() {
+    submitionNotice.innerText = ''
   },
 
   displayPendingTrips(trip, dest) {

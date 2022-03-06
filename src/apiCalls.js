@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const fetchData = (extension) => {
   return fetch(`http://localhost:3001/api/v1/${extension}`)
     .then(response => response.json())
@@ -14,7 +15,7 @@ const postData = (data, url) => {
     body: JSON.stringify(data),
 
   })
-    .then(response => console.log(response))
+    .then(response => console.log(`Trip ${data.id} has been successfuly posted`))
     .catch(err => console.log(err));
 };
 

@@ -130,8 +130,6 @@ function updateTrips() {
   sortTrips(trips);
 }
 
-//make seperate functions for the date breakdown or
-//or keep this function long?
 function sortTrips(trips) {
   console.log(trips)
   let year = utilities.date().split('/')[0];    
@@ -146,7 +144,6 @@ function sortTrips(trips) {
       const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
       domUpdates.displayPendingTrips(trip, dest)
     } else if ((ty >= year && tm > month) || (ty >= year && tm === month && td > day)) {
-      // const futureTrip = pastTrips.splice(trip, 1)
       const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
       domUpdates.displayFutureTrips(trip, dest);
     } else {
@@ -218,14 +215,15 @@ function pendingTripObject() {
 
 function submitRequest(e) {
   e.preventDefault();
-  const newTripRequest = pendingTripObject()
-  console.log(newTripRequest)
-  postData(newTripRequest, 'trips')
-  domUpdates.displayPendingTrips(newTripRequest, destinationInput.value)
+  const newTripRequest = pendingTripObject();
+  console.log(newTripRequest);
+  postData(newTripRequest, 'trips');
+  domUpdates.displayPendingTrips(newTripRequest, destinationInput.value);
   requestTripForm.reset();
-  checkPriceBtn.classList.add('disabled')
-  submitRequestBtn.classList.add('disabled')
-  domUpdates.displayTotalCostForTrip('')
+  checkPriceBtn.classList.add('disabled');
+  submitRequestBtn.classList.add('disabled');
+  domUpdates.displayTotalCostForTrip('');
+  domUpdates.SubmitTripRequest()
 }
 
 function findTripDuration(startDate, endDate) {
