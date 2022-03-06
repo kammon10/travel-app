@@ -40,7 +40,6 @@ const errorMessage = document.querySelector('.invaled-user');
 const agentHomePage = document.querySelector('.display-agent-page');
 const upcomingTrips = document.querySelector('.agent-upcoming-trips');
 const pendingTrips = document.querySelector('.agent-pending-trips');
-const searchClients = document.querySelector('.client-search');
 const submitClientSearchBtn = document.querySelector('.submit-client-search');
 const agencyLogoutBtn = document.querySelector('.agency-log-out-btn');
 
@@ -65,16 +64,19 @@ logOutBtn.addEventListener('click', logOut);
 agencyLogoutBtn.addEventListener('click', logOut);
 pendingTrips.addEventListener('click', function(e) {
   changeCardState(e)
-})
+});
 upcomingTrips.addEventListener('click', function(e) {
   changeCardState(e)
-})
+});
+submitClientSearchBtn.addEventListener('click', function(e) {
+  searchByClient(e)
+});
+
 
 
 //functions
 function logIn(e) {
   e.preventDefault()
-  console.log('here')
   let userNameIndex8 = userName.value.charAt(8)
   let userNameIndex9 = userName.value.charAt(9);
   let userID = Number(`${userNameIndex8}${userNameIndex9}`);
@@ -133,6 +135,7 @@ function updateAgentDashboard() {
   agencyHomePageView();
   updateTotalProfits();
   agencySortTrips();
+  updateClientDropdown();
 }
 
 function updateDashboard() {
@@ -171,6 +174,11 @@ function agencySortTrips() {
   })
 }
 
+function updateClientDropdown() {
+  const clients = travelRepo.getAllTravelerNames()
+  domUpdates.displayNamesInDropdown(clients)
+}
+
 function changeCardState(e) {
   const li = e.target.parentElement 
   const card = li.parentElement
@@ -200,6 +208,12 @@ function changeCardState(e) {
     
   }
 }
+
+function searchByClient(e) {
+  e.preventDefault();
+  console.log('search')
+}
+
 
 
 function updateGreetingMessage() {

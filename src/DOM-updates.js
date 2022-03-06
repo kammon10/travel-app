@@ -114,6 +114,16 @@ const domUpdates = {
     })
   },
 
+  displayNamesInDropdown(clients) {
+    const searchClients = document.querySelector('.client-dropdown');
+    clients.forEach(client => {
+      searchClients.innerHTML += `
+      <option value="${client}">${client}</option
+      `
+
+    })
+  },
+
   displayTotalCostForTrip(cost) {
     const totalCostEst = document.querySelector('.total-cost-request');
     totalCostEst.innerText = `Price for this trip is $${cost}`

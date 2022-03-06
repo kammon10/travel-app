@@ -23,9 +23,6 @@ class TravelRepo {
     return totalspentByClients
   }
 
-  getAllUpcomingTrips() {
-    // this.trips.map(trip => trip.)
-  }
 
   getCurrentTraveler(id) {
     const travelerInfo = this.travelers.find(traveler => traveler.id === id)
@@ -71,13 +68,16 @@ class TravelRepo {
     return total
   }
 
-  //forEach traveler. 
-
   getCostForTrip(trip) {
     const theDest = this.destinations.find(dest => dest.id === trip.destinationID)
     const estimatedCost = (trip.duration * theDest.lodgingCostPerDay) + (trip.travelers * theDest.flightCostPerPerson);
     const total = estimatedCost + (estimatedCost * .1)  
     return total
+  }
+
+  getAllTravelerNames() {
+    const travelerNames = this.travelers.map(traveler => traveler.name);
+    return travelerNames
   }
 
   getdestImages() {

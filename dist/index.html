@@ -69,7 +69,9 @@
     <section class="agent-header">
       <p class="profits-this-year">profits this year</p>
       <form>
-        <input class="client-search" type="text" placeHolder="Search By Client">
+        <select class="client-dropdown" id="clientNames" required>
+              <option value="" disabled selected>Select client</option>
+            </select>
         <button class="submit-client-search">Submit</button>
       </form>
       <button class="agency-log-out-btn">Logout</button>
