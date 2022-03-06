@@ -38,6 +38,12 @@ class TravelRepo {
     return findDest
   }
 
+  getTripByID(id) {
+    console.log(id)
+    const thisTrip = this.trips.find(trip => trip.id === id)
+    return thisTrip
+  }
+
   getDestByName(destination) {
     const getDest = this.destinations.find(dest => dest.destination === destination)
     return getDest

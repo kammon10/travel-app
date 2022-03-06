@@ -6,7 +6,6 @@ const fetchData = (extension) => {
 }
 
 const postData = (data, url) => {
-  console.log(data)
   return fetch(`http://localhost:3001/api/v1/${url}`, {
     method: 'POST',
     headers: {
@@ -19,4 +18,16 @@ const postData = (data, url) => {
     .catch(err => console.log(err));
 };
 
-export {fetchData, postData};
+const deleteData = (url) => {
+  return fetch(`http://localhost:3001/api/v1/${url}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(console.log(`trip has been succesfuly canceled`))
+    .catch(err => console.log(err));
+};
+
+
+export {fetchData, postData, deleteData};

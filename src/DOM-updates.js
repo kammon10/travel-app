@@ -71,7 +71,7 @@ const domUpdates = {
     const agentPendingHeader = document.querySelector('.agent-pending-header')
     agentPendingHeader.innerText = ` Pending Trips`;
     agentPendingTrips.innerHTML += `
-    <div class="card">
+    <div class="agency-pending-card-${trip.id}">
      <P>TripId: ${trip.id}</p>
      <p>Date: ${trip.date}</p>
      <p>Destination: ${dest}</p>
@@ -91,7 +91,7 @@ const domUpdates = {
     const agentUpcomingHeader = document.querySelector('.agent-upcoming-header')
     agentUpcomingHeader.innerText = `Upcoming Trips`;
     agentUpcomingTrips.innerHTML += `
-    <div class="card">
+    <div class="agency-upcoming-card-${trip.id}">
      <P>TripId: ${trip.id}</p>
      <p>Date: ${trip.date}</p>
      <p>Destination: ${dest}</p>

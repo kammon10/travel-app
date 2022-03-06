@@ -3,7 +3,7 @@ import Traveler from './classes/Traveler';
 import Trip from './classes/Trip';
 import TravelRepo from './classes/TravelRepo';
 import domUpdates from './DOM-updates';
-import {fetchData, postData} from './apiCalls'
+import {fetchData, postData, deleteData} from './apiCalls'
 import Destination from './classes/Destination';
 import utilities from './utilities';
 import './CSS/base.scss'
@@ -38,10 +38,12 @@ const logOutBtn = document.querySelector('.log-out-btn');
 const loginForm = document.querySelector('.login-form');
 const errorMessage = document.querySelector('.invaled-user');
 const agentHomePage = document.querySelector('.display-agent-page');
-const agentTripRequests = document.querySelector('.agent-pending-trips');
-const agentUpcomingTrips = document.querySelector('.agent-upcoming-trips');
+const upcomingTrips = document.querySelector('.agent-upcoming-trips');
+const pendingTrips = document.querySelector('.agent-pending-trips');
 const searchClients = document.querySelector('.client-search');
-const submitClientSearchBtn = document.querySelector('.submit-client-search')
+const submitClientSearchBtn = document.querySelector('.submit-client-search');
+const agencyLogoutBtn = document.querySelector('.agency-log-out-btn');
+
 
 
 
@@ -60,6 +62,13 @@ loginBtn.addEventListener('click', function(event) {
   logIn(event)
 });
 logOutBtn.addEventListener('click', logOut);
+agencyLogoutBtn.addEventListener('click', logOut);
+pendingTrips.addEventListener('click', function(e) {
+  changeCardState(e)
+})
+upcomingTrips.addEventListener('click', function(e) {
+  changeCardState(e)
+})
 
 
 //functions
@@ -162,6 +171,36 @@ function agencySortTrips() {
   })
 }
 
+function changeCardState(e) {
+  const li = e.target.parentElement 
+  const card = li.parentElement
+  const tripID = parseInt(card.className.split('-')[3])
+  // const trip = travelRepo.getTripByID(tripID)
+  if (e.target.className === 'approve-trip') {
+    pendingTrips.removeChild(card);
+    const updatedTrip = {
+      id: tripID,
+      status: 'approved',
+      suggestedActivities: []
+    }
+    postData(updatedTrip, 'updateTrip')
+  } else if (
+    e.target.className === 'deny-trip') {
+    pendingTrips.removeChild(card);
+    const deniedTrip = {
+      id: tripID,
+      status: 'denied',
+      suggestedActivities: []
+    }
+    postData(deniedTrip, 'updateTrip')
+  } else if (e.target.className === 'cancel-trip') {
+    console.log('cancel')
+    upcomingTrips.removeChild(card) 
+    deleteData(`trips/${tripID}`)
+    
+  }
+}
+
 
 function updateGreetingMessage() {
   domUpdates.displayGreeting(currentTraveler.name);
@@ -215,7 +254,7 @@ function homePageView() {
 }
 
 function logOut() {
-  hide([homePage]);
+  hide([homePage, agentHomePage]);
   show([loginPage]);
   loginForm.reset()
 }
