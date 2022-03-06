@@ -36,10 +36,12 @@ const loginBtn = document.querySelector('.login-submit');
 const homePage = document.querySelector('.display-homepage');
 const logOutBtn = document.querySelector('.log-out-btn');
 const loginForm = document.querySelector('.login-form');
+const errorMessage = document.querySelector('.invaled-user');
+
 
 
 //eventListeners
-// window.addEventListener('load', fetchAllData);
+
 bookNewTripBtn.addEventListener('click', formView);
 checkPriceBtn.addEventListener('click', function(event) {
   displayCost(event)
@@ -51,25 +53,27 @@ requestTripForm.addEventListener('change', activateFormButtons);
 homePageBtn.addEventListener('click', homePageView);
 loginBtn.addEventListener('click', function(event) {
   logIn(event)
-})
-logOutBtn.addEventListener('click', logOut)
+});
+logOutBtn.addEventListener('click', logOut);
 
 
 //functions
 function logIn(e) {
   e.preventDefault()
-  
+  console.log('here')
   let userNameIndex8 = userName.value.charAt(8)
   let userNameIndex9 = userName.value.charAt(9);
-  if (userNameIndex9 === null) {
-    userNameIndex9 = 0;
-  }
   let userID = Number(`${userNameIndex8}${userNameIndex9}`);
-  console.log(userName.value)
-  if ( userName.value === `traveler${userID}` && password.value === `travel`) {
+  if (!password.value === `travel` || !userName.value === `travel`) {
+    show([errorMessage])
+    loginForm.reset()
+  } else if (
+    password.value === 'travel' && userName.value === `traveler${userID}`
+  ) {
     fetchAllData(userID)
   }
 }
+
 
 function fetchAllData(userId) {
   Promise.all([fetchData('travelers'), fetchData('trips'), fetchData('destinations')])
@@ -80,12 +84,11 @@ function fetchAllData(userId) {
 
 
 function initializeData(travelerData, tripsData, destinationsData, id) {
+  hide([errorMessage])
   travelers = travelerData.map(traveler => new Traveler(traveler));
   trips = tripsData.map(trip => new Trip(trip));
   destinations = destinationsData.map(dest => new Destination(dest));
   travelRepo = new TravelRepo(travelers, trips, destinations);
-  console.log('userID:', id)
-  console.log(travelRepo.travelers.length)
   if (id > 0 && id <= travelRepo.travelers.length) {
     currentTraveler = travelRepo.getCurrentTraveler(id)
     currentTrips = travelRepo.getTripsForCurrentTraveler(id)
@@ -232,7 +235,12 @@ function findTripDuration(startDate, endDate) {
 }
 
 
-
+function displayImages() {
+  //function in travelRepo returns all images in array 
+  //set a timeout function that will pass a new image to domUpdates every
+  //5 seconds.
+  //invoke this function on page load.
+}
 // function setMinDates() {
 //   const MinDepart = document.querySelector('.departDate').min = utilities.date()
 //   document.querySelector('.return-date').min;

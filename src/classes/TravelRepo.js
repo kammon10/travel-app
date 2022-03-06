@@ -52,6 +52,10 @@ class TravelRepo {
     const total = estimatedCost + (estimatedCost * .1)  
     return total
   }
+
+  getdestImages() {
+    
+  }
 }
 
 export default TravelRepo;
