@@ -123,8 +123,7 @@ function initializeUserData(travelerData, tripsData, destinationsData, id) {
 function updateAgentDashboard() {
   agencyHomePageView();
   updateTotalProfits();
-  updateUpcomingTrips();
-  updatePendingTrips();
+  agencySortTrips();
 }
 
 function updateDashboard() {
@@ -142,8 +141,27 @@ function agencyHomePageView() {
 function updateTotalProfits() {
   const spentByClients = travelRepo.getTotalIncomeForYear()
   const income = spentByClients * .1;
-  domUpdates.displayIncome(income)
+  domUpdates.displayIncome(income);
 }
+
+function agencySortTrips() {
+  let year = utilities.date().split('/')[0];    
+  let month = utilities.date().split('/')[1];
+  let day = utilities.date().split('/')[2];
+  travelRepo.trips.forEach(trip => {
+    let ty = trip.date.split('/')[0];
+    let td = trip.date.split('/')[2];
+    let tm = trip.date.split('/')[1];
+    if (trip.status === 'pending') {
+      const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
+      domUpdates.displayAgencyPendingTrips(trip, dest)
+    } else if ((ty >= year && tm > month) || (ty >= year && tm === month && td > day)) {
+      const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
+      domUpdates.displayAgencyUpcomingTrips(trip, dest);
+    }
+  })
+}
+
 
 function updateGreetingMessage() {
   domUpdates.displayGreeting(currentTraveler.name);
@@ -181,6 +199,7 @@ function sortTrips(trips) {
       domUpdates.displayPastTrips(trip, pastDest);
     }
   });
+
 }
 
 function formView() {

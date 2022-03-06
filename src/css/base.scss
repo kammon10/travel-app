@@ -90,6 +90,16 @@ max-width: 30vw;
   border-radius: 20px;
 }
 
+.agent-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.trip-requests-section {
+  display: flex;
+  justify-content: space-around;
+}
+
 .hidden {
   display: none;
 }

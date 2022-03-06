@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 // import 
-  const submitionNotice = document.querySelector('.submition-notice');
+const submitionNotice = document.querySelector('.submition-notice');
 
 
 const domUpdates = {
@@ -61,7 +61,46 @@ const domUpdates = {
      <p>Destination: ${dest}</p>
      <p>Travelers: ${trip.travelers}
      <p>Duration: ${trip.duration} days</p>
-     <p>Status: Pending</p>
+     <p>Status: ${trip.status}</p>
+     </div>
+    `;
+  },
+
+  displayAgencyPendingTrips(trip, dest) {
+    const agentPendingTrips = document.querySelector('.agent-pending-trips');
+    const agentPendingHeader = document.querySelector('.agent-pending-header')
+    agentPendingHeader.innerText = ` Pending Trips`;
+    agentPendingTrips.innerHTML += `
+    <div class="card">
+     <P>TripId: ${trip.id}</p>
+     <p>Date: ${trip.date}</p>
+     <p>Destination: ${dest}</p>
+     <p>Travelers: ${trip.travelers}
+     <p>Duration: ${trip.duration} days</p>
+     <p>Status: ${trip.status}</p>
+     <div>
+     <button class="approve-trip">Approve</button>
+     <button class="deny-trip">Deny</button>
+     </div>
+     </div>
+    `;
+  },
+
+  displayAgencyUpcomingTrips(trip, dest) {
+    const agentUpcomingTrips = document.querySelector('.agent-upcoming-trips');
+    const agentUpcomingHeader = document.querySelector('.agent-upcoming-header')
+    agentUpcomingHeader.innerText = `Upcoming Trips`;
+    agentUpcomingTrips.innerHTML += `
+    <div class="card">
+     <P>TripId: ${trip.id}</p>
+     <p>Date: ${trip.date}</p>
+     <p>Destination: ${dest}</p>
+     <p>Travelers: ${trip.travelers}
+     <p>Duration: ${trip.duration} days</p>
+     <p>Status: Approved</p>
+     <div>
+     <button class="cancel-trip">Cancel</button>
+     </div>
      </div>
     `;
   },
