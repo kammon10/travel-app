@@ -30,6 +30,11 @@ class TravelRepo {
     return travelerInfo
   }
 
+  getTravelerByName(name) {
+    const traveler = this.travelers.find(trav => trav.name === name)
+    return traveler
+  }
+
   getDestinationForTrip(id) {
     const findDest = this.destinations.find(dest => dest.id === id)
     return findDest
@@ -48,7 +53,9 @@ class TravelRepo {
 
   getTripsForCurrentTraveler(id) {
     const trips = this.trips.filter(trip => trip.userID === id)
-    this.currentTraveler.trips = trips
+    if (this.currentTraveler) {
+      this.currentTraveler.trips = trips
+    }
     return trips
   }
 

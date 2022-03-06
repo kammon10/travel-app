@@ -42,6 +42,7 @@ const upcomingTrips = document.querySelector('.agent-upcoming-trips');
 const pendingTrips = document.querySelector('.agent-pending-trips');
 const submitClientSearchBtn = document.querySelector('.submit-client-search');
 const agencyLogoutBtn = document.querySelector('.agency-log-out-btn');
+const clientDropDown = document.querySelector('.client-dropdown')
 
 
 
@@ -134,7 +135,7 @@ function initializeUserData(travelerData, tripsData, destinationsData, id) {
 function updateAgentDashboard() {
   agencyHomePageView();
   updateTotalProfits();
-  agencySortTrips();
+  agencySortTrips(travelRepo.trips);
   updateClientDropdown();
 }
 
@@ -156,11 +157,11 @@ function updateTotalProfits() {
   domUpdates.displayIncome(income);
 }
 
-function agencySortTrips() {
+function agencySortTrips(allTrips) {
   let year = utilities.date().split('/')[0];    
   let month = utilities.date().split('/')[1];
   let day = utilities.date().split('/')[2];
-  travelRepo.trips.forEach(trip => {
+  allTrips.forEach(trip => {
     let ty = trip.date.split('/')[0];
     let td = trip.date.split('/')[2];
     let tm = trip.date.split('/')[1];
@@ -208,13 +209,14 @@ function changeCardState(e) {
     
   }
 }
-
+///////////end here. finish displaying client trips///
 function searchByClient(e) {
   e.preventDefault();
-  console.log('search')
+  const name = clientDropDown.value
+  const info = travelRepo.getTravelerByName(name)
+  const trips = travelRepo.getTripsForCurrentTraveler(info.id)
+  agencySortTrips(trips)
 }
-
-
 
 function updateGreetingMessage() {
   domUpdates.displayGreeting(currentTraveler.name);
