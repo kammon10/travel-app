@@ -37,7 +37,7 @@ const domUpdates = {
     `
   },
 
-  SubmitTripRequest() {
+  submitTripRequest() {
     submitionNotice.innerText = `Your trip request has been succesfuly submitted.`
     setTimeout(this.resetSubmitionNotice, 4000)
   },

@@ -37,6 +37,11 @@ const homePage = document.querySelector('.display-homepage');
 const logOutBtn = document.querySelector('.log-out-btn');
 const loginForm = document.querySelector('.login-form');
 const errorMessage = document.querySelector('.invaled-user');
+const agentHomePage = document.querySelector('.display-agent-page');
+const agentTripRequests = document.querySelector('.agent-pending-trips');
+const agentUpcomingTrips = document.querySelector('.agent-upcoming-trips');
+const searchClients = document.querySelector('.client-search');
+const submitClientSearchBtn = document.querySelector('.submit-client-search')
 
 
 
@@ -64,26 +69,45 @@ function logIn(e) {
   let userNameIndex8 = userName.value.charAt(8)
   let userNameIndex9 = userName.value.charAt(9);
   let userID = Number(`${userNameIndex8}${userNameIndex9}`);
-  if (!password.value === `travel` || !userName.value === `travel`) {
-    show([errorMessage])
+  if (password.value === 'travel' && userName.value === `agency`) {
     loginForm.reset()
+    agencyLogin()
   } else if (
     password.value === 'travel' && userName.value === `traveler${userID}`
   ) {
-    fetchAllData(userID)
-  }
+    customerLogin(userID) 
+  } 
+    // show([errorMessage])
+}
+
+function agencyLogin() {
+  fetchAllData(null)
+}
+
+function customerLogin(id) {
+  fetchAllData(id)
 }
 
 
 function fetchAllData(userId) {
   Promise.all([fetchData('travelers'), fetchData('trips'), fetchData('destinations')])
     .then(data => {
-      initializeData(data[0].travelers, data[1].trips, data[2].destinations, userId)
+      if (userId === null) {
+        initalizeAgencyData(data[0].travelers, data[1].trips, data[2].destinations)
+      }
+      initializeUserData(data[0].travelers, data[1].trips, data[2].destinations, userId)
     })
 }
 
+function initalizeAgencyData(travelerData, tripsData, destinationsData) {
+ travelers = travelerData.map(traveler => new Traveler(traveler));
+  trips = tripsData.map(trip => new Trip(trip));
+  destinations = destinationsData.map(dest => new Destination(dest));
+  travelRepo = new TravelRepo(travelers, trips, destinations);
+  updateAgentDashboard()
+}
 
-function initializeData(travelerData, tripsData, destinationsData, id) {
+function initializeUserData(travelerData, tripsData, destinationsData, id) {
   hide([errorMessage])
   travelers = travelerData.map(traveler => new Traveler(traveler));
   trips = tripsData.map(trip => new Trip(trip));
@@ -107,6 +131,13 @@ function initializeData(travelerData, tripsData, destinationsData, id) {
 //     return randomTraveler
 //   }
 // }
+
+function updateAgentDashboard() {
+  agencyHomePage();
+  updateTotalProfits();
+  updateUpcomingTrips();
+  updatePendingTrips();
+}
 
 function updateDashboard() {
   homePageView();
@@ -223,7 +254,7 @@ function submitRequest(e) {
   checkPriceBtn.classList.add('disabled');
   submitRequestBtn.classList.add('disabled');
   domUpdates.displayTotalCostForTrip('');
-  domUpdates.SubmitTripRequest()
+  domUpdates.submitTripRequest()
 }
 
 function findTripDuration(startDate, endDate) {

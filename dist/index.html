@@ -69,9 +69,18 @@
     <section class="agent-header">
       <button>Trip requests</button>
     </section>
-    <section class="trip-requests-section"></section>
-    <section class="total-income-section"></section>
-    <section class="todays-trips-section"></section>
+    <section class="agent-header">
+      <p class="profits-this-year">profits this year</p>
+      <form>
+        <input class="client-search" type="text" placeHolder="Search By Client">
+        <button class="submit-client-search">Submit</button>
+      </form>
+      <button class="log-out-btn">Logout</button>
+    </section>
+    <section class="trip-requests-section">
+      <div class="agent-pending-trips"></div>
+      <div class="agent-upcoming-trips"></div>
+    </section>
   </section>
   
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
