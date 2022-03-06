@@ -5,14 +5,16 @@ const fetchData = (extension) => {
 }
 
 const postData = (data, url) => {
+  console.log(data)
   return fetch(`http://localhost:3001/api/v1/${url}`, {
     method: 'POST',
-    body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json'
-    }
+    },
+    body: JSON.stringify(data),
+
   })
-    .then(response => response.json())
+    .then(response => console.log(response))
     .catch(err => console.log(err));
 };
 

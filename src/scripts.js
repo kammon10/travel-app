@@ -133,6 +133,7 @@ function updateTrips() {
 //make seperate functions for the date breakdown or
 //or keep this function long?
 function sortTrips(trips) {
+  console.log(trips)
   let year = utilities.date().split('/')[0];    
   let month = utilities.date().split('/')[1];
   let day = utilities.date().split('/')[2];
@@ -142,13 +143,12 @@ function sortTrips(trips) {
     let td = trip.date.split('/')[2];
     let tm = trip.date.split('/')[1];
     if (trip.status === 'pending') {
-      const futureTrip = pastTrips.splice(trip, 1)
       const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
-      domUpdates.displayPendingTrips(futureTrip, dest)
+      domUpdates.displayPendingTrips(trip, dest)
     } else if ((ty >= year && tm > month) || (ty >= year && tm === month && td > day)) {
-      const futureTrip = pastTrips.splice(trip, 1)
+      // const futureTrip = pastTrips.splice(trip, 1)
       const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
-      domUpdates.displayFutureTrips(futureTrip[0], dest);
+      domUpdates.displayFutureTrips(trip, dest);
     } else {
       const pastDest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
       domUpdates.displayPastTrips(trip, pastDest);
@@ -204,13 +204,14 @@ function activateFormButtons() {
 function pendingTripObject() {
   const destID = travelRepo.getDestByName(destinationInput.value).id;
   const newTripRequest = {
-    id: utilities.travelID(),
+    id: parseInt(utilities.travelID()),
     userID: currentTraveler.id,
     date: departDateInput.value.split('-').join('/'),
-    destinationID: destID,
-    travelers: travelersInput.value,
-    duration: findTripDuration(departDateInput.value, returnDateInput.value),
+    destinationID: parseInt(destID),
+    travelers: parseInt(travelersInput.value),
+    duration: parseInt(findTripDuration(departDateInput.value, returnDateInput.value)),
     status: 'pending',
+    suggestedActivities: []
   }
   return newTripRequest
 }
@@ -218,6 +219,8 @@ function pendingTripObject() {
 function submitRequest(e) {
   e.preventDefault();
   const newTripRequest = pendingTripObject()
+  console.log(newTripRequest)
+  postData(newTripRequest, 'trips')
   domUpdates.displayPendingTrips(newTripRequest, destinationInput.value)
   requestTripForm.reset();
   checkPriceBtn.classList.add('disabled')
