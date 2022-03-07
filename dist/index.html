@@ -5,13 +5,23 @@
   <title>Webpack Starter Kit</title>
 </head>
 <body>
-  <section class="login-page"></section>
-  <section>
+  <section class="login-page-js">
+    <form class="login-form">
+      <input class="username-field" type="text" name="username-field" placeholder="UserName" required>
+      <input class="password-field" type="text" name="password-field" placeholder="Password" required>
+      <button class="login-submit" value="Login" id="login-form-submit">Submit</button>
+    </form>
+    <p class="invaled-user hidden">your username or password is not valid, please try again</p>
+  </section>
+  <section class="display-homepage hidden">
     <div class="header-homepage">
       <h3 class="total-spent">total spent</h3>
       <h3 class="greeting-js">greeting</h3>
+      <button class="home-page-btn hidden">Home Page</button>
+      <div class="header-btn-styling">
       <button class="book-a-trip-btn">book a trip</button>
-
+      <button class="log-out-btn">Log Out</button>
+      </div>
     </div>
     <div class="main-display">
       <section class="display-all-trips">
@@ -23,10 +33,10 @@
         </div>
       </section>
       <section class="book-trip-page hidden">
-        <form>
+        <form class="request-trip-form">
           <div>
             <label for="start">Depart Date:</label>
-            <input class="depart-date" type="date" id="start"
+            <input class="depart-date" type="date"
             value="" min="" max="2023-12-31" required>
             <label for="end">Return date:</label>
             <input class="return-date" type="date" id="end"
@@ -35,20 +45,48 @@
           </div>
             <label for="destination">Destinaton</label>
             <select class="destination-dropdown" id="destination" required>
+              <option value="" disabled selected>Select Destination</option>
             </select>
             <label for="travelers">Travelers</label>
             <input class="travelers" type="number" id="travelers" min="1" max="30" required>
           <div>
-            <p class="total-cost-request">total cost</p>
-            <button class="request-trip-btn">request trip</button>
+            <div class="check-price-styling">
+              <button class="check-price-btn disabled" disabled="disabled">check price</button>
+              <p class="total-cost-request"></p>
+            </div>
+            <button class="request-trip-btn disabled" disabled="disabled">request trip</button>
           </div>
         </form>
+        <div class="submition-notice"></div>
       </section>
       <section class="pending-trips">
-        <h3 class="card-header">you have no pending trips</h3>
+        <h3 class="pending-card-header">you have no pending trips</h3>
         <div class="pending-trips-cards"></div>
       </section>
     </div>
+  </section>
+  <section class="display-agent-page hidden">
+    <section class="agent-header">
+      <p class="profits-this-year">profits this year</p>
+      <form>
+        <select class="client-dropdown" id="clientNames" required>
+              <option value="" disabled selected>Select client</option>
+            </select>
+        <button class="submit-client-search">Submit</button>
+      </form>
+      <button class="agency-log-out-btn">Logout</button>
+    </section>
+    <section class="trip-requests-section">
+      <div>
+        <p class="agent-pending-header"></p>
+        <div class="agent-pending-trips"></div>
+      </div>
+      <div>
+      <p class="agent-upcoming-header"></p>
+      <div class="agent-upcoming-trips"></div>
+      </div>
+      <div class="agent-today-trips"></div>
+    </section>
   </section>
   
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
