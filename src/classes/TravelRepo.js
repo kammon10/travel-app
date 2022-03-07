@@ -58,7 +58,8 @@ class TravelRepo {
     return trips
   }
 
-  //only select the trips === this year
+  
+
   getTotalSpentPerTraveler() {
     let year = utilities.date().split('/')[0];
     const total = this.currentTraveler.trips.reduce((acc, trip) => {

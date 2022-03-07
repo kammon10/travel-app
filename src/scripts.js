@@ -180,6 +180,22 @@ function updateClientDropdown() {
   domUpdates.displayNamesInDropdown(clients)
 }
 
+function updateTodaysTrips() {
+  let year = utilities.date().split('/')[0];    
+  let month = utilities.date().split('/')[1];
+  let day = utilities.date().split('/')[2];
+  travelRepo.trips.forEach(trip => {
+    let ty = trip.date.split('/')[0];
+    let td = trip.date.split('/')[2];
+    let tm = trip.date.split('/')[1];
+    if (ty === year && tm === month && td === day) {
+      const dest = travelRepo.getDestinationForTrip(trip.destinationID)
+      console.log('here', dest)
+      domUpdates.displayTodaysTrips(trip, dest.destination)
+    }
+  });
+}
+
 function changeCardState(e) {
   const li = e.target.parentElement 
   const card = li.parentElement
@@ -234,7 +250,6 @@ function updateTrips() {
 }
 
 function sortTrips(trips) {
-  console.log(trips)
   let year = utilities.date().split('/')[0];    
   let month = utilities.date().split('/')[1];
   let day = utilities.date().split('/')[2];

@@ -31,6 +31,17 @@ const domUpdates = {
     `;
   },
 
+  displayTodaysTrips(trip, dest) {
+    const todayTrips = document.querySelector('.agent-today-trips')
+    todayTrips.innerHTML += `
+       <div class="card">
+         <p>Date: ${trip.date}</p>
+         <p>Destination: ${dest}</p>
+         <p>Duration: ${trip.duration} days</p>
+       </div>
+    `
+  },
+
   displayFutureTrips(trip, dest) {
     const futureTrips = document.querySelector('.future-trips-cards');
     futureTrips.innerHTML += `
