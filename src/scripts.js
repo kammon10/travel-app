@@ -158,17 +158,26 @@ function updateTotalProfits() {
 }
 
 function agencySortTrips(allTrips) {
+  domUpdates.clearTrips()
+  console.log(allTrips)
   let year = utilities.date().split('/')[0];    
   let month = utilities.date().split('/')[1];
   let day = utilities.date().split('/')[2];
   allTrips.forEach(trip => {
+    console.log(trip)
     let ty = trip.date.split('/')[0];
     let td = trip.date.split('/')[2];
     let tm = trip.date.split('/')[1];
+    console.log(ty)
+    console.log(tm)
+    console.log(td)
+///////this trips for today needs to be updated//////
     if (trip.status === 'pending') {
+      console.log('pending')
       const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
       domUpdates.displayAgencyPendingTrips(trip, dest)
     } else if ((ty >= year && tm > month) || (ty >= year && tm === month && td > day)) {
+      console.log('upcoming')
       const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
       domUpdates.displayAgencyUpcomingTrips(trip, dest);
     }
@@ -180,21 +189,21 @@ function updateClientDropdown() {
   domUpdates.displayNamesInDropdown(clients)
 }
 
-function updateTodaysTrips() {
-  let year = utilities.date().split('/')[0];    
-  let month = utilities.date().split('/')[1];
-  let day = utilities.date().split('/')[2];
-  travelRepo.trips.forEach(trip => {
-    let ty = trip.date.split('/')[0];
-    let td = trip.date.split('/')[2];
-    let tm = trip.date.split('/')[1];
-    if (ty === year && tm === month && td === day) {
-      const dest = travelRepo.getDestinationForTrip(trip.destinationID)
-      console.log('here', dest)
-      domUpdates.displayTodaysTrips(trip, dest.destination)
-    }
-  });
-}
+// function updateTodaysTrips() {
+//   let year = utilities.date().split('/')[0];    
+//   let month = utilities.date().split('/')[1];
+//   let day = utilities.date().split('/')[2];
+//   travelRepo.trips.forEach(trip => {
+//     let ty = trip.date.split('/')[0];
+//     let td = trip.date.split('/')[2];
+//     let tm = trip.date.split('/')[1];
+//     if (ty === year && tm === month && td === day) {
+//       const dest = travelRepo.getDestinationForTrip(trip.destinationID)
+//       console.log('here', dest)
+//       domUpdates.displayTodaysTrips(trip, dest.destination)
+//     }
+//   });
+// }
 
 function changeCardState(e) {
   const li = e.target.parentElement 
@@ -212,12 +221,7 @@ function changeCardState(e) {
   } else if (
     e.target.className === 'deny-trip') {
     pendingTrips.removeChild(card);
-    const deniedTrip = {
-      id: tripID,
-      status: 'denied',
-      suggestedActivities: []
-    }
-    postData(deniedTrip, 'updateTrip')
+    deleteData(`trips/${tripID}`)
   } else if (e.target.className === 'cancel-trip') {
     console.log('cancel')
     upcomingTrips.removeChild(card) 

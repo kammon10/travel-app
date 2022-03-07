@@ -1,6 +1,11 @@
 /* eslint-disable max-len */
 // import 
 const submitionNotice = document.querySelector('.submition-notice');
+const pastTrips = document.querySelector('.past-trips-cards');
+const todayTrips = document.querySelector('.agent-today-trips');
+const futureTrips = document.querySelector('.future-trips-cards');
+const agentPendingTrips = document.querySelector('.agent-pending-trips');
+const agentUpcomingTrips = document.querySelector('.agent-upcoming-trips');
 
 
 const domUpdates = {
@@ -20,8 +25,14 @@ const domUpdates = {
     profitsThisYear.innerText = `This years profits: $${total}`
   },
 
+  clearTrips() {
+    agentPendingTrips.innerHTML = "";
+    agentUpcomingTrips.innerHTML = "";
+    todayTrips.innerHTML = "";
+  },
+
+
   displayPastTrips(trip, dest) {
-    const pastTrips = document.querySelector('.past-trips-cards');
     pastTrips.innerHTML += `
      <div class="card">
        <p>Date: ${trip.date}</p>
@@ -32,7 +43,6 @@ const domUpdates = {
   },
 
   displayTodaysTrips(trip, dest) {
-    const todayTrips = document.querySelector('.agent-today-trips')
     todayTrips.innerHTML += `
        <div class="card">
          <p>Date: ${trip.date}</p>
@@ -78,7 +88,8 @@ const domUpdates = {
   },
 
   displayAgencyPendingTrips(trip, dest) {
-    const agentPendingTrips = document.querySelector('.agent-pending-trips');
+    console.log('pending', trip)
+    console.log(dest)
     const agentPendingHeader = document.querySelector('.agent-pending-header')
     agentPendingHeader.innerText = ` Pending Trips`;
     agentPendingTrips.innerHTML += `
@@ -98,7 +109,8 @@ const domUpdates = {
   },
 
   displayAgencyUpcomingTrips(trip, dest) {
-    const agentUpcomingTrips = document.querySelector('.agent-upcoming-trips');
+    console.log('upcoming', trip)
+    console.log(dest)
     const agentUpcomingHeader = document.querySelector('.agent-upcoming-header')
     agentUpcomingHeader.innerText = `Upcoming Trips`;
     agentUpcomingTrips.innerHTML += `
