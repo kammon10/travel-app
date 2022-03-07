@@ -23,7 +23,6 @@ class TravelRepo {
     return totalspentByClients
   }
 
-
   getCurrentTraveler(id) {
     const travelerInfo = this.travelers.find(traveler => traveler.id === id)
     this.currentTraveler = travelerInfo
