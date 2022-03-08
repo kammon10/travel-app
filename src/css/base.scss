@@ -49,7 +49,7 @@ align-items: center;
 }
 
 .pending-card-header {
-  
+  color: #0c1b54;
 }
 
 button {
@@ -97,9 +97,16 @@ button:hover {
   border-radius: 25px;
 }
 
+.book-a-trip-btn, .log-out-btn {
+  margin: 10px;
+}
+
 .pending-trips {
 min-width: 30vw;
 max-width: 30vw;
+display: flex;
+flex-direction: column;
+align-items: center;
 }
 
 .card {
@@ -108,7 +115,7 @@ max-width: 30vw;
   padding: 10px;
   margin: 10px;
   border-radius: 20px;
-  height: 340px;
+  height: 360px;
   width: 245px;
   align-items: center;
 }
