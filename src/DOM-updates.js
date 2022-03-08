@@ -1,6 +1,11 @@
 /* eslint-disable max-len */
 // import 
 const submitionNotice = document.querySelector('.submition-notice');
+const pastTrips = document.querySelector('.past-trips-cards');
+const todayTrips = document.querySelector('.agent-today-trips');
+const futureTrips = document.querySelector('.future-trips-cards');
+const agentPendingTrips = document.querySelector('.agent-pending-trips');
+const agentUpcomingTrips = document.querySelector('.agent-upcoming-trips');
 
 
 const domUpdates = {
@@ -20,34 +25,44 @@ const domUpdates = {
     profitsThisYear.innerText = `This years profits: $${total}`
   },
 
+  clearTrips() {
+    agentPendingTrips.innerHTML = "";
+    agentUpcomingTrips.innerHTML = "";
+    todayTrips.innerHTML = "";
+  },
+
+
   displayPastTrips(trip, dest) {
-    const pastTrips = document.querySelector('.past-trips-cards');
+    console.log(dest)
     pastTrips.innerHTML += `
      <div class="card">
+       <img src="${dest.image}" alt="${dest.alt}">
        <p>Date: ${trip.date}</p>
-       <p>Destination: ${dest}</p>
+       <p>Destination: ${dest.destination}</p>
        <p>Duration: ${trip.duration} days</p>
        </div>
     `;
   },
 
   displayTodaysTrips(trip, dest) {
-    const todayTrips = document.querySelector('.agent-today-trips')
     todayTrips.innerHTML += `
        <div class="card">
+         <img src="${dest.image}" alt="${dest.alt}">
          <p>Date: ${trip.date}</p>
-         <p>Destination: ${dest}</p>
+         <p>Destination: ${dest.destination}</p>
          <p>Duration: ${trip.duration} days</p>
        </div>
     `
   },
 
   displayFutureTrips(trip, dest) {
+    console.log('dest-dom', dest)
     const futureTrips = document.querySelector('.future-trips-cards');
     futureTrips.innerHTML += `
      <div class="card">
+     <img src="${dest.image}" alt="${dest.alt}">
      <p>Date: ${trip.date}</p>
-     <p>Destination: ${dest}</p>
+     <p>Destination: ${dest.destination}</p>
      <p>Duration: ${trip.duration} days</p>
      </div>
     `
@@ -63,13 +78,15 @@ const domUpdates = {
   },
 
   displayPendingTrips(trip, dest) {
+    console.log(dest)
     const pendingTrips = document.querySelector('.pending-trips-cards');
     const pendingCardHeader = document.querySelector('.pending-card-header')
     pendingCardHeader.innerText = `Your Pending Trips`;
     pendingTrips.innerHTML += `
     <div class="card">
+     <img src="${dest.image}" alt="${dest.alt}">
      <p>Date: ${trip.date}</p>
-     <p>Destination: ${dest}</p>
+     <p>Destination: ${dest.destination}</p>
      <p>Travelers: ${trip.travelers}
      <p>Duration: ${trip.duration} days</p>
      <p>Status: ${trip.status}</p>
@@ -78,11 +95,10 @@ const domUpdates = {
   },
 
   displayAgencyPendingTrips(trip, dest) {
-    const agentPendingTrips = document.querySelector('.agent-pending-trips');
     const agentPendingHeader = document.querySelector('.agent-pending-header')
     agentPendingHeader.innerText = ` Pending Trips`;
     agentPendingTrips.innerHTML += `
-    <div class="agency-pending-card-${trip.id}">
+    <div class="agency-pending-card-${trip.id} card">
      <P>TripId: ${trip.id}</p>
      <p>Date: ${trip.date}</p>
      <p>Destination: ${dest}</p>
@@ -98,11 +114,12 @@ const domUpdates = {
   },
 
   displayAgencyUpcomingTrips(trip, dest) {
-    const agentUpcomingTrips = document.querySelector('.agent-upcoming-trips');
+    console.log('upcoming', trip)
+    console.log(dest)
     const agentUpcomingHeader = document.querySelector('.agent-upcoming-header')
     agentUpcomingHeader.innerText = `Upcoming Trips`;
     agentUpcomingTrips.innerHTML += `
-    <div class="agency-upcoming-card-${trip.id}">
+    <div class="agency-upcoming-card-${trip.id} card">
      <P>TripId: ${trip.id}</p>
      <p>Date: ${trip.date}</p>
      <p>Destination: ${dest}</p>

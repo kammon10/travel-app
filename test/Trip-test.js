@@ -21,35 +21,34 @@ describe('Trip', () => {
   })
 
   it('should have an id', () => {
-    console.log('id:', trip.id)
     expect(trip.id).to.equal(1)
   })
 
-  it.skip('should have a user ID', () => {
+  it('should have a user ID', () => {
     expect(trip.userID).to.equal(44)
   })
 
-  it.skip('should have a destinationID', () => {
+  it('should have a destinationID', () => {
     expect(trip.destinationID).to.equal(49)
   })
 
-  it.skip('should have a number of travelers', () => {
-    expect(trip.noOfTravelers).to.equal(1)
+  it('should have a number of travelers', () => {
+    expect(trip.travelers).to.equal(1)
   })
 
-  it.skip('should have a date', () => {
+  it('should have a date', () => {
     expect(trip.date).to.equal("2022/09/16")
   })
 
-  it.skip('should have a duration', () => { 
+  it('should have a duration', () => { 
     expect(trip.duration).to.equal(8)
   })
 
-  it.skip('should have a status', () => {
+  it('should have a status', () => {
     expect(trip.status).to.equal("approved")
   })
 
-  it.skip('should have a suggestedActivities', () => {
+  it('should have a suggestedActivities', () => {
     expect(trip.suggestedActivities.length).to.equal(0)
   })
 })

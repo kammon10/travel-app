@@ -18,31 +18,31 @@ describe('Destination', () => {
     destination = new Destination(inputObject)
   });
 
-  it.skip('should be a function', () => {
+  it('should be a function', () => {
     expect(Destination).to.be.a('function')
   });
 
-  it.skip('should have an id', () => {
+  it('should have an id', () => {
     expect(destination.id).to.equal(1)
   });
 
-  it.skip('should have a name', () => {
+  it('should have a name', () => {
     expect(destination.destination).to.equal("Lima, Peru")
   });
 
-  it.skip('should have an estimated lodging cost/day', () => {
+  it('should have an estimated lodging cost/day', () => {
     expect(destination.lodgingCostPerDay).to.equal(70)
   });
 
-  it.skip('should have an estimated flight cost', () => {
-    expect(destination.flightCost).to.equal(400)
+  it('should have an estimated flight cost', () => {
+    expect(destination.flightCostPerPerson).to.equal(400)
   });
 
-  it.skip('should have an image', () => {
-    expect(destination.image).to.equal(null)
+  it('should have an image', () => {
+    expect(destination.image).to.equal('yes')
   });
 
-  it.skip('should have an alt tag', () => {
+  it('should have an alt tag', () => {
     expect(destination.alt).to.equal("overview of city buildings")
   })
 
