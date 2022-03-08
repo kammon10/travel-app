@@ -33,10 +33,12 @@ const domUpdates = {
 
 
   displayPastTrips(trip, dest) {
+    console.log(dest)
     pastTrips.innerHTML += `
      <div class="card">
+       <img src="${dest.image}" alt="${dest.alt}">
        <p>Date: ${trip.date}</p>
-       <p>Destination: ${dest}</p>
+       <p>Destination: ${dest.destination}</p>
        <p>Duration: ${trip.duration} days</p>
        </div>
     `;
@@ -45,19 +47,22 @@ const domUpdates = {
   displayTodaysTrips(trip, dest) {
     todayTrips.innerHTML += `
        <div class="card">
+         <img src="${dest.image}" alt="${dest.alt}">
          <p>Date: ${trip.date}</p>
-         <p>Destination: ${dest}</p>
+         <p>Destination: ${dest.destination}</p>
          <p>Duration: ${trip.duration} days</p>
        </div>
     `
   },
 
   displayFutureTrips(trip, dest) {
+    console.log('dest-dom', dest)
     const futureTrips = document.querySelector('.future-trips-cards');
     futureTrips.innerHTML += `
      <div class="card">
+     <img src="${dest.image}" alt="${dest.alt}">
      <p>Date: ${trip.date}</p>
-     <p>Destination: ${dest}</p>
+     <p>Destination: ${dest.destination}</p>
      <p>Duration: ${trip.duration} days</p>
      </div>
     `
@@ -73,13 +78,15 @@ const domUpdates = {
   },
 
   displayPendingTrips(trip, dest) {
+    console.log(dest)
     const pendingTrips = document.querySelector('.pending-trips-cards');
     const pendingCardHeader = document.querySelector('.pending-card-header')
     pendingCardHeader.innerText = `Your Pending Trips`;
     pendingTrips.innerHTML += `
     <div class="card">
      <p>Date: ${trip.date}</p>
-     <p>Destination: ${dest}</p>
+     <img src="${dest.image}" alt="${dest.alt}">
+     <p>Destination: ${dest.destination}</p>
      <p>Travelers: ${trip.travelers}
      <p>Duration: ${trip.duration} days</p>
      <p>Status: ${trip.status}</p>
@@ -88,12 +95,10 @@ const domUpdates = {
   },
 
   displayAgencyPendingTrips(trip, dest) {
-    console.log('pending', trip)
-    console.log(dest)
     const agentPendingHeader = document.querySelector('.agent-pending-header')
     agentPendingHeader.innerText = ` Pending Trips`;
     agentPendingTrips.innerHTML += `
-    <div class="agency-pending-card-${trip.id}">
+    <div class="agency-pending-card-${trip.id} card">
      <P>TripId: ${trip.id}</p>
      <p>Date: ${trip.date}</p>
      <p>Destination: ${dest}</p>
@@ -114,7 +119,7 @@ const domUpdates = {
     const agentUpcomingHeader = document.querySelector('.agent-upcoming-header')
     agentUpcomingHeader.innerText = `Upcoming Trips`;
     agentUpcomingTrips.innerHTML += `
-    <div class="agency-upcoming-card-${trip.id}">
+    <div class="agency-upcoming-card-${trip.id} card">
      <P>TripId: ${trip.id}</p>
      <p>Date: ${trip.date}</p>
      <p>Destination: ${dest}</p>

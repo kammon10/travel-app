@@ -50,6 +50,11 @@ button:hover {
   background-color:hwb(26 46% 8%)
 }
 
+.scrollable {
+  height: 100%;
+  overflow-y: auto;
+}
+
 .display-all-trips, .book-trip-page {
   padding: 50px 90px 50px 90px;
   color: #1a2a6b;

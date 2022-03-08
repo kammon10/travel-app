@@ -36,6 +36,7 @@ class TravelRepo {
 
   getDestinationForTrip(id) {
     const findDest = this.destinations.find(dest => dest.id === id)
+    console.log('dest', findDest)
     return findDest
   }
 
@@ -65,7 +66,7 @@ class TravelRepo {
     const total = this.currentTraveler.trips.reduce((acc, trip) => {
       let ty = trip.date.split('/')[0]
       this.destinations.forEach(dest => {
-        if ((dest.id === trip.destinationID) && (ty >= year)) {
+        if ((dest.id === trip.destinationID) && (ty === year)) {
           acc += dest.lodgingCostPerDay * trip.duration;
           acc += dest.flightCostPerPerson * trip.travelers;
         }
