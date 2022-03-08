@@ -84,8 +84,8 @@ const domUpdates = {
     pendingCardHeader.innerText = `Your Pending Trips`;
     pendingTrips.innerHTML += `
     <div class="card">
-     <p>Date: ${trip.date}</p>
      <img src="${dest.image}" alt="${dest.alt}">
+     <p>Date: ${trip.date}</p>
      <p>Destination: ${dest.destination}</p>
      <p>Travelers: ${trip.travelers}
      <p>Duration: ${trip.duration} days</p>

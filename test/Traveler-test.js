@@ -11,8 +11,8 @@ describe('Traveler', () => {
   
 
   beforeEach(() => {
-    data =  testData.travelerData[0]
-    traveler = new Traveler(data)
+    data =  testData.travelerData[0];
+    traveler = new Traveler(data);
   });
 
   it('should be a function', () => {
@@ -29,5 +29,9 @@ describe('Traveler', () => {
 
   it('should have a type', () => {
     expect(traveler.type).to.equal('relaxer')
+  });
+
+  it('should have a trips array', () => {
+    expect(traveler.trips.length).to.equal(0)
   });
 })
