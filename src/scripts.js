@@ -58,9 +58,9 @@ submitRequestBtn.addEventListener('click', function(event) {
 });
 requestTripForm.addEventListener('change', activateFormButtons);
 homePageBtn.addEventListener('click', homePageView);
-loginBtn.addEventListener('click', function(event) {
-  logIn(event)
-});
+// loginBtn.addEventListener('click', function(event) {
+//   logIn(event)
+// });
 logOutBtn.addEventListener('click', logOut);
 agencyLogoutBtn.addEventListener('click', logOut);
 pendingTrips.addEventListener('click', function(e) {
@@ -72,48 +72,51 @@ upcomingTrips.addEventListener('click', function(e) {
 submitClientSearchBtn.addEventListener('click', function(e) {
   searchByClient(e)
 });
+window.addEventListener('load', fetchAllData(5)
+)
 
 
 
 //functions
-function logIn(e) {
-  e.preventDefault()
-  let userNameIndex8 = userName.value.charAt(8)
-  let userNameIndex9 = userName.value.charAt(9);
-  let userID = Number(`${userNameIndex8}${userNameIndex9}`);
-  if (password.value === 'travel' && userName.value === `agency`) {
-    loginForm.reset()
-    agencyLogin()
-  } else if (
-    password.value === 'travel' && userName.value === `traveler${userID}`
-  ) {
-    customerLogin(userID) 
-  } 
-    // show([errorMessage])
-}
+// function logIn(e) {
+//   e.preventDefault()
+//   let userNameIndex8 = userName.value.charAt(8)
+//   let userNameIndex9 = userName.value.charAt(9);
+//   let userID = Number(`${userNameIndex8}${userNameIndex9}`);
+//   if (password.value === 'travel' && userName.value === `agency`) {
+//     loginForm.reset()
+//     agencyLogin()
+//   } else if (
+//     password.value === 'travel' && userName.value === `traveler${userID}`
+//   ) {
+//     customerLogin(userID) 
+//   } 
+//     // show([errorMessage])
+// }
 
-function agencyLogin() {
-  fetchAllData(null)
-}
+// function agencyLogin() {
+//   fetchAllData(null)
+// }
 
-function customerLogin(id) {
-  fetchAllData(id)
-}
+// function customerLogin(id) {
+//   fetchAllData(id)
+// }
 
 
 function fetchAllData(userId) {
   Promise.all([fetchData('travelers'), fetchData('trips'), fetchData('destinations')])
     .then(data => {
-      if (userId === null) {
-        initalizeAgencyData(data[0].travelers, data[1].trips, data[2].destinations)
-      }
+      // if (userId === null) {
+      //   initalizeAgencyData(data[0].travelers, data[1].trips, data[2].destinations)
+      // }
       initializeUserData(data[0].travelers, data[1].trips, data[2].destinations, userId)
-    })
+    });
 }
 
 
 function initializeUserData(travelerData, tripsData, destinationsData, id) {
-  hide([errorMessage])
+  // hide([])
+  // show([homePage])
   travelers = travelerData.map(traveler => new Traveler(traveler));
   trips = tripsData.map(trip => new Trip(trip));
   destinations = destinationsData.map(dest => new Destination(dest));
@@ -212,7 +215,7 @@ function formView() {
 }
 
 function homePageView() {
-  hide([formPage, homePageBtn, loginPage]);
+  hide([formPage, homePageBtn]);
   show([homePage, displayTripsPage, greetingMessage])
 }
 

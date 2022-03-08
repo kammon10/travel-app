@@ -39,7 +39,7 @@ img {
 }
 
 .header-homepage {
-  background-color: #0c1b54;
+  background-color: hsl(228, 75%, 19%);
 }
 
 .header-reservationpage {
@@ -49,7 +49,7 @@ align-items: center;
 }
 
 .pending-card-header {
-  
+  color:hsl(228, 75%, 19%); 
 }
 
 button {
@@ -108,7 +108,7 @@ max-width: 30vw;
   padding: 10px;
   margin: 10px;
   border-radius: 20px;
-  height: 340px;
+  height: 360px;
   width: 245px;
   align-items: center;
 }
