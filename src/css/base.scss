@@ -2,7 +2,6 @@
 @import './_variables';
 
 body {
-  color: #c7d4f0;
   background: #edeadd;
   background-size: cover;
 }
@@ -12,9 +11,21 @@ body {
   justify-content: flex-end
 }
 
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50vh;
+}
+
 img {
-  width: 213px;
+  width: 265px;
   height: 190px;
+  border-radius: 15px 15px 0px 0px;
+}
+
+p  { 
+ margin: 5px;
 }
 
 .header-btn-styling {
@@ -24,10 +35,12 @@ img {
 .check-price-styling {
   display: flex;
 }
+
 .header-homepage {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #c7d4f0;
 
 }
 
@@ -58,12 +71,12 @@ button {
   height:40px;
   border: none;
   color: black;
-  background-color: hsl(26, 42%, 88%);
+  background-color: hwb(53 65% 9%);
   cursor: pointer;
   padding: 10px;
 }
 button:hover {
-  background-color:hwb(26 46% 8%)
+  background-color:hwb(26 46% 8%);
 }
 
 .scrollable {
@@ -83,12 +96,12 @@ button:hover {
 
 
 .disabled {
-  background-color: rgb(129, 159, 172);
+  background-color: #6a828c;
 }
 
 .past-trips-cards, .future-trips-cards {
   border: 7px solid hsl(203, 35%, 63%);
-  // opacity: .4;
+  background-color: hsl(20, 78%, 89%);
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -110,9 +123,12 @@ align-items: center;
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   color: white;
   background: #1a2a6b;
-  padding: 10px;
+  padding: 0px 10px 10px 10px;
   margin: 10px;
   border-radius: 20px;
   height: 360px;
