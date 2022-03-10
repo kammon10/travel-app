@@ -21,12 +21,10 @@ class TravelRepo {
 
   getDestinationForTrip(id) {
     const findDest = this.destinations.find(dest => dest.id === id)
-    console.log('dest', findDest)
     return findDest
   }
 
   getTripByID(id) {
-    console.log(id)
     const thisTrip = this.trips.find(trip => trip.id === id)
     return thisTrip
   }
@@ -65,7 +63,7 @@ class TravelRepo {
     const theDest = this.destinations.find(dest => dest.id === trip.destinationID)
     const estimatedCost = (trip.duration * theDest.lodgingCostPerDay) + (trip.travelers * theDest.flightCostPerPerson);
     const total = estimatedCost + (estimatedCost * .1)  
-    return total
+    return total + total * 1.1
   }
 
   getAllTravelerNames() {
@@ -74,7 +72,7 @@ class TravelRepo {
   }
 
   getTotalIncomeForYear() {
-    let year = utilities.date().split('/')[0];
+    let year = utilities.date().split('/')[0];  
     const totalspentByClients = this.trips.reduce((acc, trip) => {
       let ty = trip.date.split('/')[0]
       this.destinations.forEach(dest => {
@@ -85,7 +83,7 @@ class TravelRepo {
       });
       return acc
     }, 0)
-    return totalspentByClients
+    return totalspentByClients * .1
   }
 
 }

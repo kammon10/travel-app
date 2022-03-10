@@ -29,7 +29,7 @@ const submitRequestBtn = document.querySelector('.request-trip-btn');
 const requestTripForm = document.querySelector('.request-trip-form');
 const homePageBtn = document.querySelector('.home-page-btn');
 const greetingMessage = document.querySelector('.greeting-js');
-const loginPage = document.querySelector('.login-page-js');
+const loginPage = document.querySelector('.login-page');
 const userName = document.querySelector('.username-field');
 const password = document.querySelector('.password-field');
 const loginBtn = document.querySelector('.login-submit');
@@ -44,15 +44,12 @@ const submitClientSearchBtn = document.querySelector('.submit-client-search');
 const agencyLogoutBtn = document.querySelector('.agency-log-out-btn');
 const clientDropDown = document.querySelector('.client-dropdown')
 
-
-
-
 //eventListeners
 
 bookNewTripBtn.addEventListener('click', formView);
 checkPriceBtn.addEventListener('click', function(event) {
   displayCost(event)
-})
+});
 submitRequestBtn.addEventListener('click', function(event) {
   submitRequest(event)
 });
@@ -73,8 +70,6 @@ submitClientSearchBtn.addEventListener('click', function(e) {
   searchByClient(e)
 });
 
-
-
 //functions
 function logIn(e) {
   e.preventDefault()
@@ -89,7 +84,6 @@ function logIn(e) {
   ) {
     customerLogin(userID) 
   } 
-    // show([errorMessage])
 }
 
 function agencyLogin() {
@@ -100,7 +94,6 @@ function customerLogin(id) {
   fetchAllData(id)
 }
 
-
 function fetchAllData(userId) {
   Promise.all([fetchData('travelers'), fetchData('trips'), fetchData('destinations')])
     .then(data => {
@@ -110,7 +103,6 @@ function fetchAllData(userId) {
       initializeUserData(data[0].travelers, data[1].trips, data[2].destinations, userId)
     })
 }
-
 
 function initializeUserData(travelerData, tripsData, destinationsData, id) {
   hide([errorMessage])
@@ -124,7 +116,6 @@ function initializeUserData(travelerData, tripsData, destinationsData, id) {
     updateDashboard()
   }
 }
-
 
 function updateDashboard() {
   homePageView();
@@ -140,32 +131,12 @@ function updateAgentDashboard() {
   updateClientDropdown();
 }
 
-
-
-// function updateTodaysTrips() {
-//   let year = utilities.date().split('/')[0];    
-//   let month = utilities.date().split('/')[1];
-//   let day = utilities.date().split('/')[2];
-//   travelRepo.trips.forEach(trip => {
-//     let ty = trip.date.split('/')[0];
-//     let td = trip.date.split('/')[2];
-//     let tm = trip.date.split('/')[1];
-//     if (ty === year && tm === month && td === day) {
-//       const dest = travelRepo.getDestinationForTrip(trip.destinationID)
-//       console.log('here', dest)
-//       domUpdates.displayTodaysTrips(trip, dest.destination)
-//     }
-//   });
-// }
-
-
-
 function searchByClient(e) {
   e.preventDefault();
-  const name = clientDropDown.value
-  const info = travelRepo.getTravelerByName(name)
-  const trips = travelRepo.getTripsForCurrentTraveler(info.id)
-  agencySortTrips(trips)
+  const name = clientDropDown.value;
+  const info = travelRepo.getTravelerByName(name);
+  const trips = travelRepo.getTripsForCurrentTraveler(info.id);
+  agencySortTrips(trips);
 }
 
 function updateGreetingMessage() {
@@ -173,8 +144,8 @@ function updateGreetingMessage() {
 }
 
 function updateTotalSpent() {
-  const total = travelRepo.getTotalSpentPerTraveler()
-  const totalPlusAgient = total + (total * .1)
+  const total = travelRepo.getTotalSpentPerTraveler();
+  const totalPlusAgient = total + (total * .1);
   domUpdates.displayTotalSpent(totalPlusAgient);
 }
 
@@ -187,9 +158,8 @@ function sortTrips(trips) {
   let year = utilities.date().split('/')[0];    
   let month = utilities.date().split('/')[1];
   let day = utilities.date().split('/')[2];
-  let pastTrips = trips
-  pastTrips.forEach(trip => {
-    const dest = travelRepo.getDestinationForTrip(trip.destinationID)
+  trips.forEach(trip => {
+    const dest = travelRepo.getDestinationForTrip(trip.destinationID);
     let ty = trip.date.split('/')[0];
     let td = trip.date.split('/')[2];
     let tm = trip.date.split('/')[1];
@@ -207,16 +177,13 @@ function sortTrips(trips) {
 function formView() {
   hide([displayTripsPage, greetingMessage]);
   show([formPage, homePageBtn]);
-  // setMinDates()
   getDestinationsForForm();
 }
 
 function homePageView() {
   hide([formPage, homePageBtn, loginPage]);
-  show([homePage, displayTripsPage, greetingMessage])
+  show([homePage, displayTripsPage, greetingMessage]);
 }
-
-
 
 function getDestinationsForForm() {
   const allDest = travelRepo.destinations.map(dest => dest.destination);
@@ -233,23 +200,16 @@ function displayCost(e) {
 
 function activateFormButtons() {
   if (departDateInput.value && returnDateInput.value && travelersInput.value && destinationInput.value) {
-    checkPriceBtn.classList.remove('disabled')
-    submitRequestBtn.classList.remove('disabled')
-    domUpdates.displayTotalCostForTrip('')
+    checkPriceBtn.classList.remove('disabled');
+    submitRequestBtn.classList.remove('disabled');
+    domUpdates.displayTotalCostForTrip('');
     checkPriceBtn.disabled = false;
     submitRequestBtn.disabled = false;
-    pendingTripObject()
+    pendingTripObject();
   }
 }
 
-// function setMinDates() {
-//   const minDepart = document.querySelector('.departDate').attribute("min", utilities.date())
-//   // console.log(minDepart.value)
-//   document.querySelector('.return-date')
-// }
 
-// //should I make variables for the keys or keep the functions in the 
-// //object?
 function pendingTripObject() {
   const destID = travelRepo.getDestByName(destinationInput.value).id;
   const newTripRequest = {
@@ -268,7 +228,7 @@ function pendingTripObject() {
 function submitRequest(e) {
   e.preventDefault();
   const newTripRequest = pendingTripObject();
-  const dest = travelRepo.getDestByName(destinationInput.value)
+  const dest = travelRepo.getDestByName(destinationInput.value);
   console.log('subm', newTripRequest);
   postData(newTripRequest, 'trips');
   domUpdates.displayPendingTrips(newTripRequest, dest);
@@ -276,17 +236,18 @@ function submitRequest(e) {
   checkPriceBtn.classList.add('disabled');
   submitRequestBtn.classList.add('disabled');
   domUpdates.displayTotalCostForTrip('');
-  domUpdates.submitTripRequest()
+  domUpdates.submitTripRequest();
 }
 
 function findTripDuration(startDate, endDate) {
   const date1 = new Date(startDate);
   const date2 = new Date(endDate);
   const oneDay = 1000 * 60 * 60 * 24;
-  const changeInTime = date2.getTime() - date1.getTime()
+  const changeInTime = date2.getTime() - date1.getTime();
   const totalDays = Math.round(changeInTime / oneDay);
   return totalDays
 }
+
 //////////////////AGENCY FUNCTIONS/////////////////////////
 
 function initalizeAgencyData(travelerData, tripsData, destinationsData) {
@@ -294,59 +255,52 @@ function initalizeAgencyData(travelerData, tripsData, destinationsData) {
   trips = tripsData.map(trip => new Trip(trip));
   destinations = destinationsData.map(dest => new Destination(dest));
   travelRepo = new TravelRepo(travelers, trips, destinations);
-  updateAgentDashboard()
+  updateAgentDashboard();
 }
 
 function updateClientDropdown() {
-  const clients = travelRepo.getAllTravelerNames()
-  domUpdates.displayNamesInDropdown(clients)
+  const clients = travelRepo.getAllTravelerNames();
+  domUpdates.displayNamesInDropdown(clients);
 }
 
 
 function agencyHomePageView() {
-  hide([homePage, loginPage])
+  hide([homePage, loginPage]);
   show([agentHomePage]);
 }
 
 function updateTotalProfits() {
-  const spentByClients = travelRepo.getTotalIncomeForYear()
+  const spentByClients = travelRepo.getTotalIncomeForYear();
   const income = spentByClients * .1;
   domUpdates.displayIncome(income);
 }
 
 
 function agencySortTrips(allTrips) {
-  domUpdates.clearTrips()
-  console.log(allTrips)
+  domUpdates.clearTrips();
+  console.log(allTrips);
   let year = utilities.date().split('/')[0];    
   let month = utilities.date().split('/')[1];
   let day = utilities.date().split('/')[2];
   allTrips.forEach(trip => {
-    console.log(trip)
+    console.log(trip);
     let ty = trip.date.split('/')[0];
     let td = trip.date.split('/')[2];
     let tm = trip.date.split('/')[1];
-    console.log(ty)
-    console.log(tm)
-    console.log(td)
-///////this trips for today needs to be updated//////
     if (trip.status === 'pending') {
-      console.log('pending')
       const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
       domUpdates.displayAgencyPendingTrips(trip, dest)
     } else if ((ty >= year && tm > month) || (ty >= year && tm === month && td > day)) {
-      console.log('upcoming')
       const dest = travelRepo.getDestinationForTrip(trip.destinationID).destination;
       domUpdates.displayAgencyUpcomingTrips(trip, dest);
     }
-  })
+  });
 }
 
 function changeCardState(e) {
-  const li = e.target.parentElement 
-  const card = li.parentElement
-  const tripID = parseInt(card.className.split('-')[3])
-  // const trip = travelRepo.getTripByID(tripID)
+  const li = e.target.parentElement;
+  const card = li.parentElement;
+  const tripID = parseInt(card.className.split('-')[3]);
   if (e.target.className === 'approve-trip') {
     pendingTrips.removeChild(card);
     const updatedTrip = {
